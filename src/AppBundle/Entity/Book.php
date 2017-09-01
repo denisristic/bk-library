@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  * Book
  *
  * @ORM\Table(name="book")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\BookRepository")
+ * @ORM\Entity()
  */
 class Book {
 
@@ -65,7 +65,17 @@ class Book {
      *
      * @ORM\Column(type="integer")
      */
+
+    private $pages;
+
+
+    /**
+     * @var int
+     *
+     * @ORM\Column(type="integer")
+     */
     private $price;
+
 
     /**
      * @var int
@@ -73,29 +83,6 @@ class Book {
      * @ORM\Column(type="integer")
      */
     private $actionPrice;
-
-    /**
-     * Book constructor.
-     * @param $id
-     * @param $title
-     * @param $authors
-     * @param $publicationDate
-     * @param $publisher
-     * @param $genre
-     * @param $price
-     * @param $actionPrice
-     */
-    public function __construct($id, $title, $authors, $publicationDate, $publisher, $genre, $price, $actionPrice)
-    {
-        $this->id = $id;
-        $this->title = $title;
-        $this->authors = $authors;
-        $this->publicationDate = $publicationDate;
-        $this->publisher = $publisher;
-        $this->genre = $genre;
-        $this->price = $price;
-        $this->actionPrice = $actionPrice;
-    }
 
     /**
      * @return mixed
@@ -223,6 +210,22 @@ class Book {
     public function setActionPrice($actionPrice)
     {
         $this->actionPrice = $actionPrice;
+    }
+
+    /**
+     * @return int
+     */
+    public function getPages()
+    {
+        return $this->pages;
+    }
+
+    /**
+     * @param int $pages
+     */
+    public function setPages($pages)
+    {
+        $this->pages = $pages;
     }
 
 
