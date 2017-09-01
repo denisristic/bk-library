@@ -1,0 +1,65 @@
+# Project language
+language: php
+
+# Allows use container-based infrastructure
+sudo: false
+
+# Start mysql service
+services:
+  - mysql
+
+# Cache composer packages so "composer install" is faster
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+# Matrix to test in every php version
+matrix:
+  # Fast finish allows to set the build as "finished" even if the "allow_failures" matrix elements are not finished yet.
+  fast_finish: true
+  include:
+    - php: 7.1
+
+# Define an environment variable
+env:
+  - SYMFONY_VERSION="3.3.*" DB=mysql
+
+# Update composer
+before-install:
+  - composer self-update
+
+# Install composer dependencies,
+# Create database, schema and fixtures
+install:
+  - composer install
+  - cp app/config/parameters.yml.dist app/config/parameters.yml
+  - php bin/console doctrine:database:create --env=test
+  - php bin/console doctrine:schema:create --env=test
+  #- php bin/console doctrine:fixtures:load -n --env=test
+  - pecl channel-update pecl.php.net
+   ## PHP_CodeSniffer
+  - pear install pear/PHP_CodeSniffer
+  ## PHP Copy/Paste Detector
+  - curl -o phpcpd.phar https://phar.phpunit.de/phpcpd.phar
+  ## PHP Mess Detector
+  - pear config-set preferred_state beta
+  - printf "\n" | pecl install imagick
+  - pear channel-discover pear.phpmd.org
+  - pear channel-discover pear.pdepend.org
+  - pear install --alldeps phpmd/PHP_PMD
+  - phpenv rehash
+
+# Run script
+script:
+  ## PHP_CodeSniffer
+  - phpcs --report=emacs --standard=PSR2 app src
+  ## PHP Copy/Paste Detector
+  #- php phpcpd.phar --verbose app src
+  ## PHP Mess Detector
+  - phpmd app,src text codesize,unusedcode,naming,design,controversial,cleancode --suffixes php
+  ## PhpUnit
+  - phpunit
+  
+# After a build, send email notification with the build results
+#notifications:
+#  email: your_email
