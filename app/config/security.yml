@@ -13,7 +13,9 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         db_provider:
-            entity: {class: AppBundle:Admin, property: username}
+            entity:
+              class: AppBundle:Admin
+              property: username
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
