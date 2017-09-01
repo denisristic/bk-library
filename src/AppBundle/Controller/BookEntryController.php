@@ -24,16 +24,30 @@ class BookEntryController extends Controller
     }
 
     public function submitBookAction(Request $request){
-        $form = $this->createForm(BookType::class, new Book());
-
-        //..... TODO
+        $book = new Book();
+        $form = $this->createForm(BookType::class, $book);
 
         $form->handleRequest($request);
 
+        //... TODO shvatiti sto se okida i kako promijeniti
+
+
+
         if ($form->isSubmitted() && $form->isValid()) {
 
+            $book->setTitle($form->get('title')->getData());
+            $book->setAuthors($form->get('authors')->getData());
+            $book->setGenre($form->get('genre')->getData());
+            $book->setPublisher($form->get('publisher')->getData());
+            $book->setPublicationDate($form->get('publication_date')->getData());
+            $book->setPages($form->get('pages')->getData());
+            $book->setPrice($form->get('price')->getData());
+            $book->setActionPrice($form->get('action_price')->getData());
 
-            // perform some action...
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($book);
+            $em->flush();
 
             return $this->redirectToRoute('new_book');
         }
