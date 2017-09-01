@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Author
  *
  * @ORM\Table(name="author")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AuthorRepository")
+ * @ORM\Entity()
  */
 class Author {
 

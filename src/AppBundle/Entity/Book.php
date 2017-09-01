@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping\ManyToOne;
  * Book
  *
  * @ORM\Table(name="book")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\BookRepository")
+ * @ORM\Entity()
  */
 class Book {
 

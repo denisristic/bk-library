@@ -3,18 +3,15 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Authorization\AccessDecisionManagerInterface;
-use Symfony\Component\Security\Core\User\EquatableInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Admin
  *
  * @ORM\Table(name="admin")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\AdminRepository")
+ * @ORM\Entity()
  */
-class Admin implements AccessDecisionManagerInterface, EquatableInterface
+class Admin implements  UserInterface
 {
     /**
      * @var int
@@ -99,36 +96,46 @@ class Admin implements AccessDecisionManagerInterface, EquatableInterface
     }
 
     /**
-     * Decides whether the access is possible or not.
+     * Returns the roles granted to the user.
      *
-     * @param TokenInterface $token A TokenInterface instance
-     * @param array $attributes An array of attributes associated with the method being invoked
-     * @param object $object The object to secure
+     * <code>
+     * public function getRoles()
+     * {
+     *     return array('ROLE_USER');
+     * }
+     * </code>
      *
-     * @return bool true if the access is granted, false otherwise
+     * Alternatively, the roles might be stored on a ``roles`` property,
+     * and populated in any number of different ways when the user object
+     * is created.
+     *
+     * @return (Role|string)[] The user roles
      */
-    public function decide(TokenInterface $token, array $attributes, $object = null)
+    public function getRoles()
     {
-        // TODO: Implement decide() method.
+        return ['ROLE_ADMIN'];
     }
 
     /**
-     * The equality comparison should neither be done by referential equality
-     * nor by comparing identities (i.e. getId() === getId()).
+     * Returns the salt that was originally used to encode the password.
      *
-     * However, you do not need to compare every attribute, but only those that
-     * are relevant for assessing whether re-authentication is required.
+     * This can return null if the password was not encoded using a salt.
      *
-     * Also implementation should consider that $user instance may implement
-     * the extended user interface `AdvancedUserInterface`.
-     *
-     * @param UserInterface $user
-     *
-     * @return bool
+     * @return string|null The salt
      */
-    public function isEqualTo(UserInterface $admin)
+    public function getSalt()
     {
-        return $this->id === $admin->getId();
+        return null;
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
     }
 }
 
