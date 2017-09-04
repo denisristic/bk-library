@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                <div class="panel-title">Add attributes</div>
+            </div>
+            <div class="panel-body" >
+                <div>
+                    {{ render(controller('AppBundle:Attributes:addAuthor'))}}
+                </div>
+
+                <div>
+                    {{ render(controller('AppBundle:Attributes:addGenre')) }}
+                </div>
+
+                <div>
+                    {{ render(controller('AppBundle:Attributes:addPublisher')) }}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock body %}
