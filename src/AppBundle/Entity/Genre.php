@@ -28,18 +28,14 @@ class Genre{
      *
      * @ORM\Column(type="string")
      */
-    private $genreName;
+    private $genre;
 
     /**
      * Genre constructor.
      * @param $id
-     * @param $genreName
+     * @param $genre
      */
-    public function __construct($id, $genreName)
-    {
-        $this->id = $id;
-        $this->genreName = $genreName;
-    }
+    public function __construct(){}
 
     /**
      * @return mixed
@@ -60,17 +56,22 @@ class Genre{
     /**
      * @return mixed
      */
-    public function getGenreName()
+    public function getGenre()
     {
-        return $this->genreName;
+        return $this->genre;
     }
 
     /**
-     * @param mixed $genreName
+     * @param mixed $genre
      */
-    public function setGenreName($genreName)
+    public function setGenre($genre)
     {
-        $this->genreName = $genreName;
+        $this->genre = $genre;
+    }
+
+    public function toString($genre)
+    {
+        return $genre->genre;
     }
 
 

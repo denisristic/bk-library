@@ -8,8 +8,13 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Genre;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 class BookType extends AbstractType
@@ -20,10 +25,28 @@ class BookType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', null, ['attr' => ['autofocus' => true]])
-            ->add('authors', null)
-            ->add('genre', null)
-            ->add('publisher', null)
+            ->add('title', TextType::class, ['attr' => ['autofocus' => true]])
+            ->add('authors', EntityType::class,
+                array('class'=>'AppBundle:Author',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('a')
+                            ->orderBy('a.surname', 'ASC');
+                    },
+                    'choice_label'=>'surname'))
+            ->add('genre', EntityType::class,
+                array('class'=>'AppBundle:Genre',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('g')
+                            ->orderBy('g.genre', 'ASC');
+                    },
+                    'choice_label'=>'genre'))
+            ->add('publisher', EntityType::class,
+                array('class'=>'AppBundle:Publisher',
+                    'query_builder' => function (EntityRepository $er) {
+                        return $er->createQueryBuilder('p')
+                            ->orderBy('p.publisher', 'ASC');
+                    },
+                    'choice_label'=>'publisher'))
             ->add('publication_date', null)
             ->add('pages', null)
             ->add('price', null)

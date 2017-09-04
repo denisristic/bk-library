@@ -58,13 +58,8 @@ class SuperadminController extends Controller
             $em->persist($admin);
             $em->flush();
 
-            return $this->render(
-                "admin_add.html.twig"
-            );
         }
 
-        return $this->redirect($this->generateUrl(
-            'admin_add'
-        ));
+        return $this->redirect($this->generateUrl('admin_add'));
     }
 }

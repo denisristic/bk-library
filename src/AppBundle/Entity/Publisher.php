@@ -26,18 +26,8 @@ class Publisher {
      *
      * @ORM\Column(type="string")
      */
-    private $publisherName;
+    private $publisher;
 
-    /**
-     * Publisher constructor.
-     * @param $id
-     * @param $publisherName
-     */
-    public function __construct($id, $publisherName)
-    {
-        $this->id = $id;
-        $this->publisherName = $publisherName;
-    }
 
     /**
      * @return mixed
@@ -58,17 +48,17 @@ class Publisher {
     /**
      * @return mixed
      */
-    public function getPublisherName()
+    public function getPublisher()
     {
-        return $this->publisherName;
+        return $this->publisher;
     }
 
     /**
-     * @param mixed $publisherName
+     * @param mixed $publisher
      */
-    public function setPublisherName($publisherName)
+    public function setPublisher($publisher)
     {
-        $this->publisherName = $publisherName;
+        $this->publisher = $publisher;
     }
 
 
