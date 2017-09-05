@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -31,8 +32,8 @@ class Book {
     private $title;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection|Author[]
      * @ORM\ManyToMany(targetEntity="Author", inversedBy="books")
-     * @ORM\JoinTable(name="authors_books")
      */
     private $authors;
 
@@ -99,11 +100,12 @@ class Book {
 
     /**
      * Book constructor.
-     * @param $description
-     * @param bool $featured
+     * @internal param $description
+     * @internal param bool $featured
      */
     public function __construct()
     {
+        $this->authors = new ArrayCollection();
         $this->description = "-";
         $this->featured = 0;
     }
@@ -142,7 +144,7 @@ class Book {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getAuthors()
     {
@@ -150,11 +152,34 @@ class Book {
     }
 
     /**
-     * @param mixed $authors
+     * @param array $authors
      */
     public function setAuthors($authors)
     {
         $this->authors = $authors;
+    }
+
+
+
+    public function addAuthor (Author $author)
+    {
+        if ($this->authors->contains($author)) {
+            return;
+
+        }
+        $this->authors->add($author);
+        $author->addBook($this);
+        }
+/**
+ * @param Author $authors
+ */
+    public function removeAuthor (Author $author)
+    {
+        if (!$this->authors->contains($author)) {
+        return;
+        }
+        $this->authors->removeElement($author);
+        $author->removeBook($this);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 /**
  * Author
@@ -35,34 +36,47 @@ class Author {
     private $surname;
 
     /**
-     * @return mixed
-     */
-    public function getBooks()
-    {
-        return $this->books;
-    }
-
-    /**
-     * @param mixed $books
-     */
-    public function setBooks($books)
-    {
-        $this->books = $books;
-    }
-
-    /**
+     * @var \Doctrine\Common\Collections\Collection|Book[]
      * @ORM\ManyToMany(targetEntity="Book", mappedBy="authors")
-     * @ORM\JoinTable(name="wclass_races")
      */
     private $books;
 
     /**
      * Author constructor.
-     * @param $id
-     * @param $name
-     * @param $surname
+     * @internal param $id
+     * @internal param $name
+     * @internal param $surname
      */
-    public function __construct(){}
+    public function __construct(){
+        $this->books=new ArrayCollection();
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function addBook(Book $book)
+    {
+        if ($this->books->contains($book)) {
+            return;
+
+        }
+        $this->books->add($book);
+        $book->addAuthor($this);
+    }
+    /**
+     * @param Author $authors
+     */
+    public function removeBook (Book $book)
+    {
+        if (!$this->books->contains($book)) {
+            return;
+        }
+        $this->books->removeElement($book);
+        $book->removeAuthor($this);
+    }
+
 
     /**
      * @return mixed
