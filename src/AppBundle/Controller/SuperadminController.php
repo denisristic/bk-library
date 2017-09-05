@@ -20,12 +20,10 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 class SuperadminController extends Controller
 {
     /**
-     * @Route("/superadmin", name="admin_add")
+     * @Route("/superadmin/new", name="admin_add")
      */
     public function adminAdd(AuthenticationUtils $helper)
     {
-//        $this->denyAccessUnlessGranted('ROLE_SUPERADMIN', null, 'Unable to access this page!');
-
         $admin = new Admin();
         $form = $this->createForm(AdminType::class, $admin);
 
@@ -36,9 +34,9 @@ class SuperadminController extends Controller
     }
 
     /**
-     * @Route("/superadmin/new", name="admin_new")
+     * @Route("/superadmin/new/add", name="admin_new")
      */
-    public function newAdmin(Request $request,UserPasswordEncoderInterface $encoder){
+    public function newAdmin(Request $request, UserPasswordEncoderInterface $encoder){
         $admin = new Admin();
 
         $form = $this->createForm(AdminType::class, $admin);
@@ -48,6 +46,7 @@ class SuperadminController extends Controller
         $password = $form->get('password')->getData();
 
         $admin->setUsername($form->get('username')->getData());
+        $admin->setRole("ROLE_ADMIN");
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
@@ -58,8 +57,13 @@ class SuperadminController extends Controller
             $em->persist($admin);
             $em->flush();
 
+            return $this->redirect($this->generateUrl('admin_add'));
         }
 
-        return $this->redirect($this->generateUrl('admin_add'));
+        return $this->render(
+            'security/admin_add.html.twig',
+            array('form' => $form->createView(), 'error' => 'Please put valid informations about admin.',)
+        );
+
     }
 }

@@ -1,5 +1,3 @@
-# To get started with security, check out the documentation:
-# https://symfony.com/doc/current/security.html
 security:
     role_hierarchy:
       ROLE_SUPER_ADMIN: [ROLE_ADMIN]
@@ -8,38 +6,29 @@ security:
         strategy: unanimous
 
     encoders:
-      AppBundle\Entity\Admin: bcrypt
+      AppBundle\Entity\Admin:
+          algorithm: bcrypt
 
-    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         db_provider:
             entity:
               class: AppBundle:Admin
-              property: username
 
     firewalls:
-        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
-            pattern: ^/
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
 
         main:
             anonymous: ~
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
             form_login:
               login_path: security_login
               check_path: security_login
-
+              default_target_path: security_login
             logout:
-                path: security_logout
-                target: homepage
+              path: security_logout
+              target: /
 
-            pattern: ^/
-            security: false
-            provider: db_provider
+    access_control:
+      - {path: /superadmin, roles: ROLE_SUPER_ADMIN}
+      - {path: /attributes, roles: ROLE_ADMIN}
