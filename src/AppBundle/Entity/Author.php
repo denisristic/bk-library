@@ -35,6 +35,28 @@ class Author {
     private $surname;
 
     /**
+     * @return mixed
+     */
+    public function getBooks()
+    {
+        return $this->books;
+    }
+
+    /**
+     * @param mixed $books
+     */
+    public function setBooks($books)
+    {
+        $this->books = $books;
+    }
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Book", mappedBy="authors")
+     * @ORM\JoinTable(name="wclass_races")
+     */
+    private $books;
+
+    /**
      * Author constructor.
      * @param $id
      * @param $name

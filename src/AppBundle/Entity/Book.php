@@ -31,11 +31,8 @@ class Book {
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Author")
-     * @ORM\JoinTable(name="books_authors",
-     *      joinColumns={@JoinColumn(name="book_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="author_id", referencedColumnName="id")}
-     *      )
+     * @ORM\ManyToMany(targetEntity="Author", inversedBy="books")
+     * @ORM\JoinTable(name="authors_books")
      */
     private $authors;
 
@@ -80,9 +77,37 @@ class Book {
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $actionPrice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=2048, options={"default":false})
+     */
+
+    private $description;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+
+    private $featured;
+
+    /**
+     * Book constructor.
+     * @param $description
+     * @param bool $featured
+     */
+    public function __construct()
+    {
+        $this->description = "-";
+        $this->featured = 0;
+    }
+
 
     /**
      * @return mixed
@@ -226,6 +251,38 @@ class Book {
     public function setPages($pages)
     {
         $this->pages = $pages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFeatured()
+    {
+        return $this->featured;
+    }
+
+    /**
+     * @param bool $featured
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
     }
 
 

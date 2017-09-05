@@ -48,7 +48,6 @@ class SuperadminController extends Controller
         $password = $form->get('password')->getData();
 
         $admin->setUsername($form->get('username')->getData());
-
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 

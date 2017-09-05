@@ -26,15 +26,11 @@ class Genre{
     /**
      * @var string
      *
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="string", unique=true)
      */
     private $genre;
 
-    /**
-     * Genre constructor.
-     * @param $id
-     * @param $genre
-     */
+
     public function __construct(){}
 
     /**

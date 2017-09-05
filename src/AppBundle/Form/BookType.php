@@ -13,7 +13,9 @@ use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -32,7 +34,8 @@ class BookType extends AbstractType
                         return $er->createQueryBuilder('a')
                             ->orderBy('a.surname', 'ASC');
                     },
-                    'choice_label'=>'surname'))
+                    'choice_label'=>'surname',
+                    ))
             ->add('genre', EntityType::class,
                 array('class'=>'AppBundle:Genre',
                     'query_builder' => function (EntityRepository $er) {
@@ -47,10 +50,11 @@ class BookType extends AbstractType
                             ->orderBy('p.publisher', 'ASC');
                     },
                     'choice_label'=>'publisher'))
-            ->add('publication_date', null)
-            ->add('pages', null)
-            ->add('price', null)
-            ->add('action_price', null, ['required' => false])
+            ->add('publication_date', IntegerType::class)
+            ->add('pages', IntegerType::class)
+            ->add('price', IntegerType::class)
+            ->add('action_price', IntegerType::class, ['required' => false])
+            ->add('description', TextareaType::class, ['required' => false])
             ->add('submit', SubmitType::class);
     }
 }
