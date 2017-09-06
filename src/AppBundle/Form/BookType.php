@@ -58,9 +58,10 @@ class BookType extends AbstractType
             ->add('price', IntegerType::class)
             ->add('action_price', IntegerType::class, ['required' => false])
             ->add('description', TextareaType::class, ['required' => false])
-            ->add('imageFile', VichImageType::class, [
-                'required' => true,
-            ])
+//            ->add('imageFile', VichImageType::class, [
+//                'required' => true,
+//            ])
+            ->add('file')
             ->add('submit', SubmitType::class);
     }
 

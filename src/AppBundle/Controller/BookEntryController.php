@@ -45,6 +45,7 @@ class BookEntryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            $book->upload();
             $em->persist($book);
             $em->flush();
 

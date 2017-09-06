@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\HttpFoundation\File\File;
 
@@ -76,7 +77,6 @@ class Book {
      *
      * @ORM\Column(type="integer")
      */
-
     private $pages;
 
 
@@ -117,39 +117,105 @@ class Book {
      */
     private $image;
 
+    /**
+     * @Assert\File(maxSize="6000000")
+     */
+    private $file;
 
     /**
-     * @Vich\UploadableField(mapping="book_image", fileNameProperty="image")
+     * Sets file.
      *
-     * @var File
+     * @param UploadedFile $file
      */
-    private $imageFile;
-
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
-     *
-     * @return Book
-     */
-    public function setImageFile(File $img = null)
+    public function setFile(UploadedFile $file = null)
     {
-        $this->imageFile = $img;
-
-        return $this;
+        $this->file = $file;
     }
 
     /**
-     * @return File|null
+     * Get file.
+     *
+     * @return UploadedFile
      */
-    public function getImageFile()
+    public function getFile()
     {
-        return $this->imageFile;
+        return $this->file;
     }
+
+
+    public function getAbsolutePath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadRootDir().'/'.$this->image;
+    }
+
+    public function getWebPath()
+    {
+        return null === $this->image
+            ? null
+            : $this->getUploadDir().'/'.$this->image;
+    }
+
+    protected function getUploadRootDir()
+    {
+        return __DIR__.'/../../../web/'.$this->getUploadDir();
+
+    }
+
+    protected function getUploadDir()
+    {
+        return 'uploads/images';
+    }
+
+    public function upload()
+    {
+        if (null === $this->getFile()) {
+            return;
+        }
+        $this->getFile()->move(
+            $this->getUploadRootDir(),
+            $this->getFile()->getClientOriginalName()
+        );
+
+        $this->image = $this->getFile()->getClientOriginalName();
+
+        $this->file = null;
+    }
+
+//
+//    /**
+//     * @Vich\UploadableField(mapping="book_image", fileNameProperty="image")
+//     *
+//     * @var File
+//     */
+//    private $imageFile;
+//
+//    /**
+//     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+//     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+//     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+//     * must be able to accept an instance of 'File' as the bundle will inject one here
+//     * during Doctrine hydration.
+//     *
+//     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+//     *
+//     * @return Book
+//     */
+//    public function setImageFile(File $img = null)
+//    {
+//        $this->imageFile = $img;
+//
+//        return $this;
+//    }
+//
+//    /**
+//     * @return File|null
+//     */
+//    public function getImageFile()
+//    {
+//        return $this->imageFile;
+//    }
 
     /**
      * Book constructor.
