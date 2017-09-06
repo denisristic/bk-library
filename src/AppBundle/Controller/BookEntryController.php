@@ -5,8 +5,10 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Book;
 use AppBundle\Form\BookType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class BookEntryController extends Controller
 {
@@ -32,8 +34,6 @@ class BookEntryController extends Controller
 
         $form->handleRequest($request);
 
-        $book = $form->getData('book');
-
         try {
             $this->validate($book);
         } catch (\Exception $ex) {
@@ -56,7 +56,9 @@ class BookEntryController extends Controller
             $this->fail($request,"Nevaljana forma.");
         }
 
-        return $this->redirect($this->generateUrl('add_book'));
+        return $this->render('book_entry.html.twig', array('route'=>'/book',
+            'form' => $form->createView()
+        ));
     }
 
     private function fail(Request $request, $message) {

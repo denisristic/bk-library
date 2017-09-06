@@ -6,12 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Book
  *
  * @ORM\Table(name="book")
  * @ORM\Entity()
+ * @Vich\Uploadable()
  */
 class Book {
 
@@ -104,6 +108,48 @@ class Book {
      * @ORM\Column(type="boolean", options={"default":false})
      */
     private $featured;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string")
+     *
+     */
+    private $image;
+
+
+    /**
+     * @Vich\UploadableField(mapping="book_image", fileNameProperty="image")
+     *
+     * @var File
+     */
+    private $imageFile;
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the  update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile $image
+     *
+     * @return Book
+     */
+    public function setImageFile(File $img = null)
+    {
+        $this->imageFile = $img;
+
+        return $this;
+    }
+
+    /**
+     * @return File|null
+     */
+    public function getImageFile()
+    {
+        return $this->imageFile;
+    }
 
     /**
      * Book constructor.
@@ -376,5 +422,21 @@ class Book {
     public function getGenre()
     {
         return $this->genre;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * @param mixed $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
     }
 }
