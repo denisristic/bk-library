@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 /**
@@ -21,7 +22,11 @@ class AdminType extends AbstractType
     {
         $builder
             ->add('username', TextType::class)
-            ->add('password', PasswordType::class)
+            ->add('password', RepeatedType::class, array(
+                'type' => PasswordType::class,
+                'first_options'  => array('label' => 'Password'),
+                'second_options' => array('label' => 'Repeat Password'),
+            ))
             ->add('submit', SubmitType::class, array('label' => 'Add Admin'))
         ;
     }

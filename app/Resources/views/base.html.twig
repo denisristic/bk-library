@@ -10,6 +10,9 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
+    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+        <a href="{{ logout_path() }}" class="btn btn-danger">Logout</a>
+    {% endif %}
     {% block body %}{% endblock %}
     {% block javascripts %}{% endblock %}
 </body>
