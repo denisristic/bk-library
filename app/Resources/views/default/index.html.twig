@@ -6,7 +6,7 @@
 
         <div class="row">
             <div class="logo">
-                <img src="icon-final.png">
+                <img src="D:\Users\Patrik\PhpstormProjects\bk-library\app\Resources\public\icon-final.png">
 
             </div>
 
@@ -14,120 +14,21 @@
 
 
             <ul class="main-nav">
-                <li><a href="#cat_id">KATALOG</a></li>
+                <li><a href="#offer">KATALOG</a></li>
                 <li><a href="">KONTAKT</a></li>
             </ul>
         </div>
 
     </div>
     <div class="clear"></div>
-    <div class="q">
-        <p class="quote"><cite>"This is a simple hero unit, a simple jumbotron-style component for <br>calling extra attention to featured content or information."</cite></p>
-    </div>
-
-
-    <div class="clear"></div>
-    <div class="rest">
-        <section class="col-sm-3 sidenav hidden-xs text-center filter">
-            <h3>FILTERI:</h3>
-            <div class="form-group">
-                <label for="select" class="attribute">Autor:</label>
-                <div class="col-lg-10">
-                    <select class="form-control select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-            </div>
-            <div class="clear"></div>
-            <div class="form-group">
-                <label for="select" class="attribute">Žanr:</label>
-                <div class="col-lg-10">
-                    <select class="form-control select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
-                <div class="clear"></div>
-                <div class="form-group">
-                    <label for="select"  class="attribute">Nakladnik:</label>
-                    <div class="col-lg-10">
-                        <select class="form-control select">
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                            <option>4</option>
-                            <option>5</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-            <div class="form-group">
-                <label for="action" class="attribute">Godina izdanja:</label>
-                <div class="col-lg-10">
-                    <form class="number">
-                        <input type="number" name="year" min="1500" max="2017">
-                        <input type="submit">
-                    </form>
-                </div>
-            </div>
-        </section>
-        <div class="offer">
-            <section id="top5" class="catalogue">
-                <h3>TOP 5 (preporuka vlasnika):</h3>
-                <ul id="top5cat" class="book-gallery">
-
-                    <li>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">NASLOV</button>
-                            </div>
-                            <div class="panel-body">
-                                <img class="cover img-responsive" src="">
-                                <p>autor:jkfhjkds</p>
-                                <p>nakladnik:jkhhjhgj</p>
-                            </div>
 
 
 
-                        </div>
-                    </li>
-                </ul>
+    {% block book %}
 
-            </section>
-            <div class="clear"></div>
-
-            <section class="catalogue" id="cat_id">
-                <h3>KATALOG:</h3>
-                <ul class="book-gallery">
+    {% endblock  %}
 
 
-                    <li>
-                        <div class="panel panel-primary">
-                            <div class="panel-heading">
-                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">NASLOV</button>
-                            </div>
-                            <div class="panel-body">
-                                <img class="cover img-responsive" src="">
-                                <p>autor:jkfhjkds</p>
-                                <p>nakladnik:jkhhjhgj</p>
-                            </div>
-
-
-
-                        </div>
-                    </li>
-
-                </ul>
-
-            </section>
-        </div>
         <div class="clear"></div>
         <section id="contact" class="container">
 
@@ -135,30 +36,7 @@
 
         </section>
     </div>
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">NASLOV</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body panel-body">
-                    <img class="cover img-responsive" src="img1.jpg">
-                    <div class="fullatr">
-                        <p>autor:jkfhjkds</p>
-                        <p>nakladnik:jkhhjhgj</p>
-                        <p>cijena:31231kn</p>
-                        <p>ocjena:4.5/5</p>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
     <script type="text/javascript">
         $(function() {
             $('a[href*="#"]:not([href="#"])').click(function() {
@@ -212,15 +90,7 @@
     }
 
 
-    .quote
-    {
-        text-align: center;
-        color: white;
-        font-size: 25px;
-        margin-top: 200px;
-        margin-bottom: 400px;
-        padding-top: 200px;
-    }
+
 
     .main-nav
     {
@@ -270,6 +140,37 @@
     .clear{
         clear: both;
     }
+
+    .book-gallery li{
+        box-sizing: border-box;
+        display:block;
+        float:left;
+        max-width: 150px;
+        max-height:100px;
+        color: #171e42;
+        margin-right:10px;
+        margin-bottom: 200px;
+
+    }
+    .book-gallery li:hover{
+        transform:scale(1.25);
+        transition:0.5s;
+    }
+
+    #top5cat li:hover{
+        transform:scale(1.25);
+        transition:0.5s;
+    }
+
+    .quote
+    {
+        text-align: center;
+        color: white;
+        font-size: 25px;
+        margin-top: 200px;
+        margin-bottom: 400px;
+        padding-top: 200px;
+    }
     .cover{
         height: 110px;
         width: 90px;
@@ -302,21 +203,7 @@
         margin: 0;
 
     }
-    .book-gallery li{
-        box-sizing: border-box;
-        display:block;
-        float:left;
-        max-width: 150px;
-        max-height:100px;
-        color: #171e42;
-        margin-right:10px;
-        margin-bottom: 200px;
 
-    }
-    .book-gallery li:hover{
-        transform:scale(1.25);
-        transition:0.5s;
-    }
     .cover{
         float:left;
         width:80px;
@@ -341,17 +228,11 @@
         margin: 10px 0 0 0;
         padding: 15px 0 0 0;
     }
-    #top5cat li:hover{
-        transform:scale(1.25);
-        transition:0.5s;
-    }
-    .panel {
-        max-height: 100px;
-        max-width: 100px;
-    }
+
+
     .filter{
         color:white;
-        background-color:	#392613;
+        background-color: #392613;
         background-position: center;
         background-size: cover;
         background-attachment: fixed;
@@ -362,7 +243,7 @@
         border-radius: 20px;
     }
     .offer{
-        background-color: 	#392613;
+        background-color: #392613;
         color:white;
         background-position: center;
         background-size: cover;
@@ -395,12 +276,30 @@
     .number{
         color: black;
     }
-    .fullatr{
-        float: left;
-        margin-left: 10px;
-    }
+
     .panel-heading {
         background-color:#31B0D5;
     }
+
+    .book-description
+    {
+        margin-top: 200px;
+        background-color: #392613;
+        color:white;
+        background-position: center;
+        background-size: cover;
+        background-attachment: fixed;
+        margin-left: 10px;
+        padding: 0 10px 0 30px;
+
+        font-weight: bold;
+        border-radius: 20px;
+    }
+
+    .description-list
+    {
+        list-style-type: none;
+    }
+
 </style>
 {% endblock %}

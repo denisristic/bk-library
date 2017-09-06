@@ -1,0 +1,28 @@
+{% extends 'default/index.html.twig'%}
+{% block book %}
+
+    <div class="clear2"><q></q></div>
+
+
+    <div class="book-description">
+        <ul class="description-list">
+            <li>Naslov: {{ books.title }}</li>
+            <li>Autori:<br> {% for author in books.authors %} {{author.name ~ ' ' ~ author.surname}}<br>{% endfor %}</li>
+            <li>Žanr: {{ books.genre.genre }}</li>
+            <li>Izdavač: {{ books.publisher.publisher }}</li>
+            <li>Datum izdavanja: {{ books.publicationDate }}</li>
+            <li>Broj stranica: {{ books.pages }}</li>
+            <li>Cijena: {{ books.price }}</li>
+            <li>Akcijska cijena: {{ books.actionPrice }}</li>
+            <li>Opis: {{ books.description }}</li>
+        </ul>
+    </div>
+    {% block adminOptions %}
+{% endblock %}
+
+{% endblock %}
+
+
+
+
+

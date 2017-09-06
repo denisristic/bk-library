@@ -1,0 +1,10 @@
+{% extends '/book_details.html.twig'%}
+
+{% block adminOptions %}
+
+    <a href="{{ path('edit_book', {id: books.id}) }}" class="btn btn-sm btn-default">
+        <i class="fa fa-eye" aria-hidden="true"></i> EDIT
+    </a>
+
+
+{% endblock %}
