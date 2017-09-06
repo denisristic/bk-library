@@ -1,0 +1,114 @@
+{% extends 'default/index.html.twig'%}
+{% block book %}
+
+<div class="q">
+    <p class="quote"><cite>"This is a simple hero unit, a simple jumbotron-style component for <br>calling extra attention to featured content or information."</cite></p>
+</div>
+
+<div class="clear"></div>
+<div class="rest">
+    <section class="col-sm-3 sidenav hidden-xs text-center filter">
+        <h3>FILTERI:</h3>
+        <div class="form-group">
+            <label for="select" class="attribute">Autor:</label>
+            <div class="col-lg-10">
+                <select class="form-control select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="form-group">
+            <label for="select" class="attribute">Žanr:</label>
+            <div class="col-lg-10">
+                <select class="form-control select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+            <div class="clear"></div>
+            <div class="form-group">
+                <label for="select"  class="attribute">Nakladnik:</label>
+                <div class="col-lg-10">
+                    <select class="form-control select">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="action" class="attribute">Godina izdanja:</label>
+            <div class="col-lg-10">
+                <form class="number">
+                    <input type="number" name="year" min="1500" max="2017">
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </section>
+    <div class="offer" id="offer">
+        <section id="top5" class="catalogue">
+            <h3>TOP 5 (preporuka vlasnika):</h3>
+            <ul id="top5cat" class="book-gallery">
+
+                <li>
+
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">NASLOV</button>
+                        </div>
+                        <div class="panel-body">
+                            <img class="cover img-responsive" src="">
+                            <p>autor:jkfhjkds</p>
+                            <p>nakladnik:jkhhjhgj</p>
+                        </div>
+
+                    </div>
+
+                </li>
+            </ul>
+
+        </section>
+        <div class="clear"></div>
+
+        <section class="catalogue" id="cat_id">
+            <h3>KATALOG:</h3>
+            <ul class="book-gallery">
+
+                {% for book in books %}
+                    <li>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+
+                            <a href="{{ path('book_details', {id: book.id}) }}" style="color: white"><p>{{ book.title }}</p></a>
+
+                        </div>
+                        <div class="panel-body">
+                            <img class="cover img-responsive" src="">
+                            <p>autor: {% for author in book.authors %} {{ author.name ~ ' ' ~ author.surname }} {% endfor %}</p>
+                            <p>nakladnik:{{ book.publisher.publisher }}</p>
+                        </div>
+                    </div>
+                    </li>
+
+
+                {% endfor %}
+            </ul>
+
+        </section>
+    </div>
+{% endblock %}
+
+
+
