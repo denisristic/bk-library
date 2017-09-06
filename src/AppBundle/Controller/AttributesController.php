@@ -65,8 +65,7 @@ class AttributesController extends Controller
             $em->persist($author);
             $em->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+            $this->addFlash('success', "Author added");
 
 
         }
@@ -109,8 +108,7 @@ class AttributesController extends Controller
             $em->persist($publisher);
             $em->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
+            $this->addFlash('success', "Publisher added");
 
         }
 
@@ -152,9 +150,7 @@ class AttributesController extends Controller
             $em->persist($genre);
             $em->flush();
 
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-
+            $this->addFlash('success', "Genre added");
 
         }
 

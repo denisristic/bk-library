@@ -34,13 +34,14 @@ class BookEntryController extends Controller
         $form->handleRequest($request);
 
         $book->setTitle($form->get('title')->getData());
-        $book->setAuthors($form->get('authors')->getData());
+        $book->setAuthors(array($form->get('authors')->getData()));
         $book->setGenre($form->get('genre')->getData());
         $book->setPublisher($form->get('publisher')->getData());
         $book->setPublicationDate($form->get('publication_date')->getData());
         $book->setPages($form->get('pages')->getData());
         $book->setPrice($form->get('price')->getData());
         $book->setActionPrice($form->get('action_price')->getData());
+        $book->setDescription($form->get('description')->getData());
 
         if ($form->isSubmitted() && $form->isValid()) {
 
@@ -48,6 +49,8 @@ class BookEntryController extends Controller
 
             $em->persist($book);
             $em->flush();
+
+            $this->addFlash('success', "Book added");
 
         }
 

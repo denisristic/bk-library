@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinColumn;
 use Doctrine\ORM\Mapping\ManyToOne;
@@ -31,11 +32,8 @@ class Book {
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Author")
-     * @ORM\JoinTable(name="books_authors",
-     *      joinColumns={@JoinColumn(name="book_id", referencedColumnName="id")},
-     *      inverseJoinColumns={@JoinColumn(name="author_id", referencedColumnName="id")}
-     *      )
+     * @var \Doctrine\Common\Collections\Collection|Author[]
+     * @ORM\ManyToMany(targetEntity="Author", inversedBy="books")
      */
     private $authors;
 
@@ -80,9 +78,38 @@ class Book {
     /**
      * @var int
      *
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $actionPrice;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(type="string", length=2048, options={"default":false})
+     */
+
+    private $description;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(type="boolean", options={"default":false})
+     */
+
+    private $featured;
+
+    /**
+     * Book constructor.
+     * @internal param $description
+     * @internal param bool $featured
+     */
+    public function __construct()
+    {
+        $this->authors = new ArrayCollection();
+        $this->description = "-";
+        $this->featured = 0;
+    }
+
 
     /**
      * @return mixed
@@ -117,7 +144,7 @@ class Book {
     }
 
     /**
-     * @return mixed
+     * @return array
      */
     public function getAuthors()
     {
@@ -125,11 +152,34 @@ class Book {
     }
 
     /**
-     * @param mixed $authors
+     * @param array $authors
      */
     public function setAuthors($authors)
     {
         $this->authors = $authors;
+    }
+
+
+
+    public function addAuthor (Author $author)
+    {
+        if ($this->authors->contains($author)) {
+            return;
+
+        }
+        $this->authors->add($author);
+        $author->addBook($this);
+        }
+/**
+ * @param Author $authors
+ */
+    public function removeAuthor (Author $author)
+    {
+        if (!$this->authors->contains($author)) {
+        return;
+        }
+        $this->authors->removeElement($author);
+        $author->removeBook($this);
     }
 
     /**
@@ -226,6 +276,38 @@ class Book {
     public function setPages($pages)
     {
         $this->pages = $pages;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * @param mixed $description
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isFeatured()
+    {
+        return $this->featured;
+    }
+
+    /**
+     * @param bool $featured
+     */
+    public function setFeatured($featured)
+    {
+        $this->featured = $featured;
     }
 
 
