@@ -60,7 +60,4 @@ class Publisher {
     {
         $this->publisher = $publisher;
     }
-
-
-
 }

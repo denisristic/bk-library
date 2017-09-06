@@ -35,67 +35,45 @@ class Author {
      */
     private $surname;
 
-    /**
-     * @var \Doctrine\Common\Collections\Collection|Book[]
-     * @ORM\ManyToMany(targetEntity="Book", mappedBy="authors")
-     */
-    private $books;
 
     /**
-     * Author constructor.
-     * @internal param $id
-     * @internal param $name
-     * @internal param $surname
+     * Constructor
      */
-    public function __construct(){
-        $this->books=new ArrayCollection();
-    }
-
-
-
-    /**
-     * @return mixed
-     */
-    public function addBook(Book $book)
+    public function __construct()
     {
-        if ($this->books->contains($book)) {
-            return;
-
-        }
-        $this->books->add($book);
-        $book->addAuthor($this);
-    }
-    /**
-     * @param Author $authors
-     */
-    public function removeBook (Book $book)
-    {
-        if (!$this->books->contains($book)) {
-            return;
-        }
-        $this->books->removeElement($book);
-        $book->removeAuthor($this);
+        $this->books = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
+
     /**
-     * @return mixed
+     * Get id
+     *
+     * @return integer
      */
-    public function getid()
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return Author
      */
-    public function setid($id)
+    public function setName($name)
     {
-        $this->id = $id;
+        $this->name = $name;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get name
+     *
+     * @return string
      */
     public function getName()
     {
@@ -103,29 +81,26 @@ class Author {
     }
 
     /**
-     * @param mixed $name
+     * Set surname
+     *
+     * @param string $surname
+     *
+     * @return Author
      */
-    public function setName($name)
+    public function setSurname($surname)
     {
-        $this->name = $name;
+        $this->surname = $surname;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get surname
+     *
+     * @return string
      */
     public function getSurname()
     {
         return $this->surname;
     }
-
-    /**
-     * @param mixed $surname
-     */
-    public function setSurname($surname)
-    {
-        $this->surname = $surname;
-    }
-
-
-
 }

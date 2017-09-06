@@ -15,7 +15,6 @@ class BookEntryController extends Controller
      *
      */
     public function newBookAction (){
-
         $form = $this->createForm(BookType::class, new Book());
 
         return $this->render('book_entry.html.twig', array('route'=>'/book',
@@ -33,28 +32,47 @@ class BookEntryController extends Controller
 
         $form->handleRequest($request);
 
-        $book->setTitle($form->get('title')->getData());
-        $book->setAuthors(array($form->get('authors')->getData()));
-        $book->setGenre($form->get('genre')->getData());
-        $book->setPublisher($form->get('publisher')->getData());
-        $book->setPublicationDate($form->get('publication_date')->getData());
-        $book->setPages($form->get('pages')->getData());
-        $book->setPrice($form->get('price')->getData());
-        $book->setActionPrice($form->get('action_price')->getData());
-        $book->setDescription($form->get('description')->getData());
+        $book = $form->getData('book');
+
+        try {
+            $this->validate($book);
+        } catch (\Exception $ex) {
+            $this->fail($request, $ex->getMessage());
+            return $this->redirect($this->generateUrl('add_book'));
+        }
+
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em = $this->getDoctrine()->getManager();
 
             $em->persist($book);
             $em->flush();
 
-            $this->addFlash('success', "Book added");
-
+            $request->getSession()
+                ->getFlashBag()
+                ->add('success', 'Knjiga dodana !')
+            ;
+        } else {
+            $this->fail($request,"Nevaljana forma.");
         }
 
         return $this->redirect($this->generateUrl('add_book'));
+    }
 
+    private function fail(Request $request, $message) {
+        $request->getSession()
+            ->getFlashBag()
+            ->add('fail', $message);
+        ;
+    }
+
+    private function validate(Book $book) {
+        if ($book->getPublicationDate() < 1455 ||$book->getPublicationDate() > 2100) {
+            throw  new \Exception("Nevaljana godina.");
+        }
+
+        if ($book->getActionPrice() !== null && ($book->getPrice() < $book->getActionPrice())) {
+            throw new \Exception("Akcijska cijena mora biti manja od početne.");
+        }
     }
 }

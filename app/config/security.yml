@@ -31,4 +31,5 @@ security:
 
     access_control:
       - {path: /superadmin, roles: ROLE_SUPER_ADMIN}
-      - {path: /attributes, roles: ROLE_ADMIN}
+      - {path: /attributes, roles: ROLE_SUPER_ADMIN}
+      - {path: /book, roles: ROLE_ADMIN}
