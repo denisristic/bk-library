@@ -45,6 +45,14 @@ class SuperadminController extends Controller
 
         $password = $form->get('password')->getData();
 
+
+        if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $password)) {
+            return $this->render(
+                'security/admin_add.html.twig',
+                array('form' => $form->createView(), 'error' => 'Lozinka mora imati 8-30 znakova, slova i broj.',)
+            );
+        }
+
         $admin->setUsername($form->get('username')->getData());
         $admin->setRole("ROLE_ADMIN");
 
@@ -54,16 +62,21 @@ class SuperadminController extends Controller
             $encoded = $encoder->encodePassword($admin, $password);
             $admin->setPassword($encoded);
 
-            $em->persist($admin);
-            $em->flush();
-
+            try {
+                $em->persist($admin);
+                $em->flush();
+            } catch (\Exception $ex) {
+                return $this->render(
+                    'security/admin_add.html.twig',
+                    array('form' => $form->createView(), 'error' => 'Admin sa zadanim korisničkim imenom postoji.',)
+                );
+            }
             return $this->redirect($this->generateUrl('admin_add'));
         }
 
         return $this->render(
             'security/admin_add.html.twig',
-            array('form' => $form->createView(), 'error' => 'Please put valid informations about admin.',)
+            array('form' => $form->createView(), 'error' => 'Lozinke nisu odgovarajuće',)
         );
-
     }
 }

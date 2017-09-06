@@ -3,6 +3,22 @@
 {% block body %}
     <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
+            {% if app.session.flashBag.has('success') %}
+                <div class="alert alert-success">
+                    {% for msg in app.session.flashBag.get('success') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if app.session.flashBag.has('fail') %}
+                <div class="alert alert-danger">
+                    {% for msg in app.session.flashBag.get('fail') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
             <div class="panel-heading">
                 <div class="panel-title">Add Book</div>
             </div>

@@ -33,7 +33,16 @@ class Book {
 
     /**
      * @var \Doctrine\Common\Collections\Collection|Author[]
-     * @ORM\ManyToMany(targetEntity="Author", inversedBy="books")
+     *
+     * @ORM\ManyToMany(targetEntity="Author")
+     * @ORM\JoinTable(
+     *  name="book_author",
+     *  joinColumns={
+     *      @ORM\JoinColumn(name="book_id", referencedColumnName="id")
+     *  },
+     *  inverseJoinColumns={
+     *      @ORM\JoinColumn(name="author_id", referencedColumnName="id")
+     *  })
      */
     private $authors;
 
@@ -87,7 +96,6 @@ class Book {
      *
      * @ORM\Column(type="string", length=2048, options={"default":false})
      */
-
     private $description;
 
     /**
@@ -95,7 +103,6 @@ class Book {
      *
      * @ORM\Column(type="boolean", options={"default":false})
      */
-
     private $featured;
 
     /**
@@ -112,23 +119,33 @@ class Book {
 
 
     /**
-     * @return mixed
+     * Get id
+     *
+     * @return integer
      */
-    public function getid()
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * Set title
+     *
+     * @param string $title
+     *
+     * @return Book
      */
-    public function setid($id)
+    public function setTitle($title)
     {
-        $this->id = $id;
+        $this->title = $title;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get title
+     *
+     * @return string
      */
     public function getTitle()
     {
@@ -136,54 +153,23 @@ class Book {
     }
 
     /**
-     * @param mixed $title
+     * Set publicationDate
+     *
+     * @param integer $publicationDate
+     *
+     * @return Book
      */
-    public function setTitle($title)
+    public function setPublicationDate($publicationDate)
     {
-        $this->title = $title;
+        $this->publicationDate = $publicationDate;
+
+        return $this;
     }
 
     /**
-     * @return array
-     */
-    public function getAuthors()
-    {
-        return $this->authors;
-    }
-
-    /**
-     * @param array $authors
-     */
-    public function setAuthors($authors)
-    {
-        $this->authors = $authors;
-    }
-
-
-
-    public function addAuthor (Author $author)
-    {
-        if ($this->authors->contains($author)) {
-            return;
-
-        }
-        $this->authors->add($author);
-        $author->addBook($this);
-        }
-/**
- * @param Author $authors
- */
-    public function removeAuthor (Author $author)
-    {
-        if (!$this->authors->contains($author)) {
-        return;
-        }
-        $this->authors->removeElement($author);
-        $author->removeBook($this);
-    }
-
-    /**
-     * @return mixed
+     * Get publicationDate
+     *
+     * @return integer
      */
     public function getPublicationDate()
     {
@@ -191,79 +177,23 @@ class Book {
     }
 
     /**
-     * @param mixed $publicationDate
+     * Set pages
+     *
+     * @param integer $pages
+     *
+     * @return Book
      */
-    public function setPublicationDate($publicationDate)
+    public function setPages($pages)
     {
-        $this->publicationDate = $publicationDate;
+        $this->pages = $pages;
+
+        return $this;
     }
 
     /**
-     * @return mixed
-     */
-    public function getPublisher()
-    {
-        return $this->publisher;
-    }
-
-    /**
-     * @param mixed $publisher
-     */
-    public function setPublisher($publisher)
-    {
-        $this->publisher = $publisher;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getGenre()
-    {
-        return $this->genre;
-    }
-
-    /**
-     * @param mixed $genre
-     */
-    public function setGenre($genre)
-    {
-        $this->genre = $genre;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * @param mixed $price
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getActionPrice()
-    {
-        return $this->actionPrice;
-    }
-
-    /**
-     * @param mixed $actionPrice
-     */
-    public function setActionPrice($actionPrice)
-    {
-        $this->actionPrice = $actionPrice;
-    }
-
-    /**
-     * @return int
+     * Get pages
+     *
+     * @return integer
      */
     public function getPages()
     {
@@ -271,15 +201,71 @@ class Book {
     }
 
     /**
-     * @param int $pages
+     * Set price
+     *
+     * @param integer $price
+     *
+     * @return Book
      */
-    public function setPages($pages)
+    public function setPrice($price)
     {
-        $this->pages = $pages;
+        $this->price = $price;
+
+        return $this;
     }
 
     /**
-     * @return mixed
+     * Get price
+     *
+     * @return integer
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set actionPrice
+     *
+     * @param integer $actionPrice
+     *
+     * @return Book
+     */
+    public function setActionPrice($actionPrice)
+    {
+        $this->actionPrice = $actionPrice;
+
+        return $this;
+    }
+
+    /**
+     * Get actionPrice
+     *
+     * @return integer
+     */
+    public function getActionPrice()
+    {
+        return $this->actionPrice;
+    }
+
+    /**
+     * Set description
+     *
+     * @param string $description
+     *
+     * @return Book
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * Get description
+     *
+     * @return string
      */
     public function getDescription()
     {
@@ -287,30 +273,108 @@ class Book {
     }
 
     /**
-     * @param mixed $description
+     * Set featured
+     *
+     * @param boolean $featured
+     *
+     * @return Book
      */
-    public function setDescription($description)
+    public function setFeatured($featured)
     {
-        $this->description = $description;
+        $this->featured = $featured;
+
+        return $this;
     }
 
     /**
-     * @return bool
+     * Get featured
+     *
+     * @return boolean
      */
-    public function isFeatured()
+    public function getFeatured()
     {
         return $this->featured;
     }
 
     /**
-     * @param bool $featured
+     * Add author
+     *
+     * @param \AppBundle\Entity\Author $author
+     *
+     * @return Book
      */
-    public function setFeatured($featured)
+    public function addAuthor(\AppBundle\Entity\Author $author)
     {
-        $this->featured = $featured;
+        $this->authors[] = $author;
+
+        return $this;
     }
 
+    /**
+     * Remove author
+     *
+     * @param \AppBundle\Entity\Author $author
+     */
+    public function removeAuthor(\AppBundle\Entity\Author $author)
+    {
+        $this->authors->removeElement($author);
+    }
 
+    /**
+     * Get authors
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAuthors()
+    {
+        return $this->authors;
+    }
 
+    /**
+     * Set publisher
+     *
+     * @param \AppBundle\Entity\Publisher $publisher
+     *
+     * @return Book
+     */
+    public function setPublisher(\AppBundle\Entity\Publisher $publisher)
+    {
+        $this->publisher = $publisher;
 
+        return $this;
+    }
+
+    /**
+     * Get publisher
+     *
+     * @return \AppBundle\Entity\Publisher
+     */
+    public function getPublisher()
+    {
+        return $this->publisher;
+    }
+
+    /**
+     * Set genre
+     *
+     * @param \AppBundle\Entity\Genre $genre
+     *
+     * @return Book
+     */
+    public function setGenre(\AppBundle\Entity\Genre $genre)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
+    /**
+     * Get genre
+     *
+     * @return \AppBundle\Entity\Genre
+     */
+    public function getGenre()
+    {
+        return $this->genre;
+    }
 }
