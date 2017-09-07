@@ -151,7 +151,6 @@ class AttributesController extends Controller
             $em->flush();
 
             $this->addFlash('success', "Genre added");
-
         }
 
         return $this->redirect($this->generateUrl('add_attributes'));

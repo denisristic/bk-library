@@ -3,7 +3,6 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Book;
-use AppBundle\Form\BookType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,8 +37,4 @@ class DefaultController extends Controller
     {
         return $this->render('book_details_admin.html.twig', ['books' => $book]);
     }
-
-
-
-
 }

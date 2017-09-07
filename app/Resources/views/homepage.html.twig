@@ -95,7 +95,7 @@
 
                         </div>
                         <div class="panel-body">
-                            <img class="cover img-responsive" src="">
+                            <img class="cover img-responsive" src="{{ asset('uploads/images/'~book.image) }}">
                             <p>autor: {% for author in book.authors %} {{ author.name ~ ' ' ~ author.surname }} {% endfor %}</p>
                             <p>nakladnik:{{ book.publisher.publisher }}</p>
                         </div>
@@ -109,6 +109,3 @@
         </section>
     </div>
 {% endblock %}
-
-
-

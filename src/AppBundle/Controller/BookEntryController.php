@@ -10,6 +10,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Controller for entering and editing books.
+ *
+ * Class BookEntryController
+ * @package AppBundle\Controller
+ *
+ */
 class BookEntryController extends Controller
 {
     /**
@@ -62,23 +69,6 @@ class BookEntryController extends Controller
         ));
     }
 
-    private function fail(Request $request, $message) {
-        $request->getSession()
-            ->getFlashBag()
-            ->add('fail', $message);
-        ;
-    }
-
-    private function validate(Book $book) {
-        if ($book->getPublicationDate() < 1455 ||$book->getPublicationDate() > 2100) {
-            throw  new \Exception("Nevaljana godina.");
-        }
-
-        if ($book->getActionPrice() !== null && ($book->getPrice() < $book->getActionPrice())) {
-            throw new \Exception("Akcijska cijena mora biti manja od početne.");
-        }
-    }
-
     /**
      * @Route("admin/{id}/edit", name="edit_book", requirements={"id": "\d+"})
      */
@@ -89,8 +79,6 @@ class BookEntryController extends Controller
         return $this->render('book_edit.html.twig', array('route'=>'/admin/' . $book->getId() .'/edit', 'form' => $form->createView()));
     }
 
-
-
     /**
     * @Route("admin/{id}/edit/submit", name="submit_book", requirements={"id": "\d+"})
     */
@@ -99,7 +87,6 @@ class BookEntryController extends Controller
         $form = $this->createForm(BookType::class, $book);
 
         $form->handleRequest($request);
-
 
         try {
             $this->validate($book);
@@ -111,6 +98,11 @@ class BookEntryController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
 
+            if ($book->getFile() !== null) {
+                $book->upload();
+            }
+
+            $em->persist($book);
             $em->flush();
 
             $request->getSession()
@@ -124,5 +116,34 @@ class BookEntryController extends Controller
         return $this->redirect($this->generateUrl('admin_book_details', ['id' => $book->getId()]));
     }
 
+    /**
+     * Function for validating if book has correct attributes. Book has to be released
+     * between age of 1455 and 2100, and it's action price should be lower than actual one.
+     *
+     * @param Book $book
+     * @throws \Exception
+     *
+     */
+    private function validate(Book $book) {
+        if ($book->getPublicationDate() < 1455 ||$book->getPublicationDate() > 2100) {
+            throw  new \Exception("Nevaljana godina.");
+        }
 
+        if ($book->getActionPrice() !== null && ($book->getPrice() < $book->getActionPrice())) {
+            throw new \Exception("Akcijska cijena mora biti manja od početne.");
+        }
+    }
+
+    /**
+     * Method that sets fail message.
+     *
+     * @param Request $request
+     * @param $message
+     */
+    private function fail(Request $request, $message) {
+        $request->getSession()
+            ->getFlashBag()
+            ->add('fail', $message);
+        ;
+    }
 }

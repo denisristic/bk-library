@@ -68,12 +68,3 @@ swiftmailer:
     username: '%mailer_user%'
     password: '%mailer_password%'
     spool: { type: memory }
-#Vich configuration
-vich_uploader:
-    db_driver: orm
-
-    mappings:
-        book_image:
-            uri_prefix: /uploads/images
-            upload_destination: '%kernel.root_dir%/../web/uploads/images'
-            inject_on_load: false

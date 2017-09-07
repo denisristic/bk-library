@@ -3,8 +3,9 @@
 
     <div class="clear2"><q></q></div>
 
-
     <div class="book-description">
+        <img class="cover" src="{{ asset('uploads/images/'~books.image) }}">
+
         <ul class="description-list">
             <li>Naslov: {{ books.title }}</li>
             <li>Autori:<br> {% for author in books.authors %} {{author.name ~ ' ' ~ author.surname}}<br>{% endfor %}</li>

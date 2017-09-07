@@ -69,7 +69,4 @@ class Genre{
     {
         return $genre->genre;
     }
-
-
-
 }

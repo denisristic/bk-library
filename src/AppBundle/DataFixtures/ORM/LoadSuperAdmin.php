@@ -9,16 +9,16 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Created by PhpStorm.
- * User: josip
- * Date: 05-Sep-17
- * Time: 16:30
+ * Class for loading SuperAdmin
+ *
+ * Class LoadSuperAdmin
+ * @package AppBundle\DataFixtures\ORM
  */
 class LoadSuperAdmin implements FixtureInterface, ContainerAwareInterface {
     private $container;
 
     /**
-     * Load data fixtures with the passed EntityManager
+     * Loading one initial SuperAdmin to database
      *
      * @param ObjectManager $manager
      */
@@ -37,6 +37,12 @@ class LoadSuperAdmin implements FixtureInterface, ContainerAwareInterface {
         $em->flush();
     }
 
+    /**
+     * Setting aware container for using dependency injection.
+     *
+     * @param ContainerInterface|null $container
+     *
+     */
     public function setContainer(ContainerInterface $container = null)
     {
         $this->container = $container;

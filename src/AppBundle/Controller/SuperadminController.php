@@ -17,9 +17,18 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Controller for working with SuperAdmin interface.
+ *
+ * Class SuperadminController
+ * @package AppBundle\Controller
+ *
+ */
 class SuperadminController extends Controller
 {
     /**
+     * Form for generating new Admin.
+     *
      * @Route("/superadmin/new", name="admin_add")
      */
     public function adminAdd(AuthenticationUtils $helper)
@@ -34,6 +43,8 @@ class SuperadminController extends Controller
     }
 
     /**
+     * Adds new Admin.
+     *
      * @Route("/superadmin/new/add", name="admin_new")
      */
     public function newAdmin(Request $request, UserPasswordEncoderInterface $encoder){
@@ -46,6 +57,7 @@ class SuperadminController extends Controller
         $password = $form->get('password')->getData();
 
 
+        // Function that checks if password is valid.
         if(!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,30}$/', $password)) {
             return $this->render(
                 'security/admin_add.html.twig',

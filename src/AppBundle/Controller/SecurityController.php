@@ -9,18 +9,22 @@
 namespace AppBundle\Controller;
 
 
-use AppBundle\Entity\Admin;
-use AppBundle\Form\AdminType;
-use AppBundle\Repository\AdminRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ * Controller for  logging into page as SuperAdmin or Admin role.
+ *
+ * Class SecurityController
+ * @package AppBundle\Controller
+ *
+ */
 class SecurityController extends Controller
 {
     /**
+     * Action for logging in, if user is not authenticated, it is redirected to this page.
+     *
      * @Route("/login", name="security_login")
      */
     public function loginAction(AuthenticationUtils $helper)
@@ -32,6 +36,8 @@ class SecurityController extends Controller
     }
 
     /**
+     * Action for logging out, defined in security.yml
+     *
      * @Route("/logout",name="security_logout")
      */
     public function logoutAction()
