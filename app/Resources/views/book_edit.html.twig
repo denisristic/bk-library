@@ -1,7 +1,7 @@
 {% extends 'base_admin.html.twig' %}
 
-{% block body %}
-    <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+{% block body2 %}
+    <div id="signupbox" class="bookcon mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
         <div class="panel panel-info">
             {% if app.session.flashBag.has('success') %}
                 <div class="alert alert-success">
@@ -20,7 +20,7 @@
             {% endif %}
 
             <div class="panel-heading">
-                <div class="panel-title">Add Book</div>
+                <div class="panel-title">Dodaj knjigu</div>
             </div>
             <div class="panel-body" >
                 <form id="signupform" class="form-horizontal" role="form" action="{{ route }}/submit" method="post" enctype="multipart/form-data">
@@ -31,4 +31,4 @@
             </div>
         </div>
     </div>
-{% endblock body %}
+{% endblock body2 %}

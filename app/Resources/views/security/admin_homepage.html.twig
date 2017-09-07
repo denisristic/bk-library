@@ -1,16 +1,16 @@
-{% extends 'default/index.html.twig' %}
+{% extends 'base_admin.html.twig' %}
 
-{% block body %}
-    <div class="container">
-        <h2>Admin page</h2>
+{% block body2 %}
+    <div class="container admin_list">
+        <h2 style="color: white" >Administracijska stranica</h2>
         <ul class="list-group">
-            <li class="list-group-item"><a href="{{ path('new_book') }}">ADD BOOK</a></li>
-            <li class="list-group-item"><a href="{{ path('add_attributes') }}">ADD ATTRIBUTES</a></li>
+            <li class="admin_att list-group-item"><a href="{{ path('new_book') }}">ADD BOOK</a></li>
+            <li class="admin_att list-group-item"><a href="{{ path('add_attributes') }}">ADD ATTRIBUTES</a></li>
 
             {% if is_granted('ROLE_SUPER_ADMIN') %}
-                <li class="list-group-item"><a href="">FEATURED</a></li>
-                <li class="list-group-item"><a href="{{ path('admin_add') }}">ADD ADMIN</a></li>
+                <li class="admin_att list-group-item"><a href="">FEATURED</a></li>
+                <li class="admin_att list-group-item"><a href="{{ path('admin_add') }}">ADD ADMIN</a></li>
             {% endif %}
         </ul>
     </div>
-{% endblock body %}
+{% endblock body2 %}
