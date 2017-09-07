@@ -157,7 +157,7 @@ class BookEntryController extends Controller
 
         $em->flush();
 
-        return $this->render('homepage.html.twig', ['books' => $books]);
+        return $this->redirect($this->generateUrl('homepage'));
     }
 
     /**
