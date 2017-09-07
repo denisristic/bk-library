@@ -20,19 +20,20 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class BookEntryController extends Controller
 {
     /**
-     * @Route("/book", name="add_book")
+     * @Route("/admin/book", name="add_book")
      *
      */
     public function newBookAction (){
         $form = $this->createForm(BookType::class, new Book());
 
-        return $this->render('book_entry.html.twig', array('route'=>'/book',
+        return $this->render('book_entry.html.twig', array(
+            'route'=>'/admin/book',
             'form' => $form->createView()
         ));
     }
 
     /**
-     * @Route("/book/new", name="new_book")
+     * @Route("admin/book/new", name="new_book")
      *
      */
     public function submitBookAction(Request $request){
@@ -56,15 +57,14 @@ class BookEntryController extends Controller
             $em->persist($book);
             $em->flush();
 
-            $request->getSession()
-                ->getFlashBag()
-                ->add('success', 'Knjiga dodana !')
-            ;
+            $this->addFlash('success', 'Knjiga dodana !');
+            return $this->redirect($this->generateUrl('add_book'));
         } else {
             $this->fail($request,"Nevaljana forma.");
         }
 
-        return $this->render('book_entry.html.twig', array('route'=>'/book',
+        return $this->render('book_entry.html.twig', array(
+            'route'=>'/admin/book',
             'form' => $form->createView()
         ));
     }
@@ -105,10 +105,7 @@ class BookEntryController extends Controller
             $em->persist($book);
             $em->flush();
 
-            $request->getSession()
-                ->getFlashBag()
-                ->add('success', 'Knjiga izmijenjena !')
-            ;
+            $this->addFlash('success', 'Knjiga izmijenjena !');
         } else {
             $this->fail($request,"Nevaljana forma.");
         }
@@ -169,7 +166,8 @@ class BookEntryController extends Controller
      *
      */
     private function validate(Book $book) {
-        if ($book->getPublicationDate() < 1455 ||$book->getPublicationDate() > 2100) {
+
+        if ($book->getPublicationDate() < 1455 || $book->getPublicationDate() > 2100) {
             throw  new \Exception("Nevaljana godina.");
         }
 
@@ -185,9 +183,6 @@ class BookEntryController extends Controller
      * @param $message
      */
     private function fail(Request $request, $message) {
-        $request->getSession()
-            ->getFlashBag()
-            ->add('fail', $message);
-        ;
+        $this->addFlash('fail', $message);
     }
 }
