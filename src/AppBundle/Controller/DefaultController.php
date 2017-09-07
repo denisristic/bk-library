@@ -2,7 +2,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
+use AppBundle\Entity\Genre;
+use AppBundle\Entity\Publisher;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,7 +23,16 @@ class DefaultController extends Controller
 
         $featuredBooks = $em->getRepository(Book::class )->findBy(['featured' => 1]);
 
-        return $this->render('homepage.html.twig', ['books' => $books, 'featuredBooks' => $featuredBooks]);
+        $authors=$em->getRepository(Author::class )->findAll();
+        $genres=$em->getRepository(Genre::class )->findAll();
+        $publishers=$em->getRepository(Publisher::class )->findAll();
+
+        return $this->render('homepage.html.twig',
+            ['books' => $books,
+                'featuredBooks' => $featuredBooks,
+                'authors'=>$authors,
+                'genres'=>$genres,
+                'publishers'=>$publishers]);
     }
 
     /**
