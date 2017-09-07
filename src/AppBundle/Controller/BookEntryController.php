@@ -117,6 +117,19 @@ class BookEntryController extends Controller
     }
 
     /**
+     * @Route("admin/{id}/remove", name="remove_book", requirements={"id": "\d+"})
+     */
+    public function removeBookAction(Book $book)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($book);
+        $em->flush();
+
+        return $this->redirect($this->generateUrl('homepage'));
+
+    }
+
+    /**
      * Function for validating if book has correct attributes. Book has to be released
      * between age of 1455 and 2100, and it's action price should be lower than actual one.
      *
