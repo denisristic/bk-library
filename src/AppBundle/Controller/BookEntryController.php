@@ -130,6 +130,37 @@ class BookEntryController extends Controller
     }
 
     /**
+     * @Route("/admin/featured", name="featured_book", requirements={"id": "\d+"})
+     */
+    public function featuredAction(){
+        $em = $this->getDoctrine()->getManager();
+        $books = $em->getRepository(Book::class)->findAll();
+
+        return $this->render('featured.html.twig',
+            ['books' => $books]);
+    }
+
+    /**
+     * @Route("/admin/featured/submit", name="featured_submit", requirements={"id": "\d+"})
+     */
+    public function featuredSubmitAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $books = $em->getRepository(Book::class)->findAll();
+        $ids = $request->request->get('check_list');
+        foreach ($books as $book) {
+            if (in_array($book->getId(), $ids)) {
+                $book->setFeatured(true);
+            } else {
+                $book->setFeatured(false);
+            }
+        }
+
+        $em->flush();
+
+        return $this->render('homepage.html.twig', ['books' => $books]);
+    }
+
+    /**
      * Function for validating if book has correct attributes. Book has to be released
      * between age of 1455 and 2100, and it's action price should be lower than actual one.
      *
