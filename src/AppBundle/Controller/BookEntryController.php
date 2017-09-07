@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Book;
 use AppBundle\Form\BookType;
+use AppBundle\Form\FeaturedType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\Request;
@@ -114,6 +115,38 @@ class BookEntryController extends Controller
         }
 
         return $this->redirect($this->generateUrl('admin_book_details', ['id' => $book->getId()]));
+    }
+
+    /**
+     * @Route("/admin/featured", name="featured_book", requirements={"id": "\d+"})
+     */
+    public function featuredAction(){
+        $em = $this->getDoctrine()->getManager();
+        $books = $em->getRepository(Book::class)->findAll();
+
+        return $this->render('featured.html.twig',
+            ['books' => $books]);
+    }
+
+    /**
+     * @Route("/admin/featured/submit", name="featured_submit", requirements={"id": "\d+"})
+     */
+    public function featuredSubmitAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
+        $books = $em->getRepository(Book::class)->findAll();
+
+        $ids = $request->request->get('check_list');
+        foreach ($books as $book) {
+            if (in_array($book->getId(), $ids)) {
+                $book->setFeatured(true);
+            } else {
+                $book->setFeatured(false);
+            }
+        }
+
+        $em->flush();
+
+        return $this->render('homepage.html.twig', ['books' => $books]);
     }
 
     /**

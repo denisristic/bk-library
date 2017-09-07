@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\File\File;
  *
  * @ORM\Table(name="book")
  * @ORM\Entity()
- * @Vich\Uploadable()
  */
 class Book {
 

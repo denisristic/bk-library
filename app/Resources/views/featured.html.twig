@@ -1,0 +1,66 @@
+{% extends 'default/index.html.twig' %}
+
+{% block body %}
+    <div id="signupbox" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+        <div class="panel panel-info">
+            {% if app.session.flashBag.has('success') %}
+                <div class="alert alert-success">
+                    {% for msg in app.session.flashBag.get('success') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            {% if app.session.flashBag.has('fail') %}
+                <div class="alert alert-danger">
+                    {% for msg in app.session.flashBag.get('fail') %}
+                        {{ msg }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="panel-heading">
+                <div class="panel-title">Uredi Top 5</div>
+            </div>
+            <div class="panel-body" >
+            <table class="table table-striped table-middle-aligned">
+                <thead>
+                <tr>
+                    <th scope="col">Naslov</th>
+                    <th scope="col">Izdvojeno</th>
+                </tr>
+                </thead>
+                <tbody>
+                <form action="{{ path('featured_submit') }}" method="post">
+                    {% for book in books %}
+                       <tr>
+                           <td>{{ book.title }}</td>
+                           <td>
+                                    {% if book.featured %}
+                                        <input class="single-checkbox" name="check_list[]" value="{{ book.id }}" type="checkbox"  checked>
+                                    {% else %}
+                                        <input class="single-checkbox" name="check_list[]" value="{{ book.id }}" type="checkbox">
+                                    {% endif %}
+                           <td>
+                       </tr>
+                        <br>
+                    {% endfor %}
+                    <input type="submit">
+                </form>
+                <tbody>
+            </table>
+            </div>
+
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $('input[type=checkbox]').on('change', function (e) {
+            if ($('input[type=checkbox]:checked').length > 5) {
+                $(this).prop('checked', false);
+                alert("Dozvoljeno samo 5 označenih knjiga");
+            }
+        });
+    </script>
+{% endblock body %}
+
