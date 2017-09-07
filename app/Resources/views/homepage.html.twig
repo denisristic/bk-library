@@ -66,12 +66,13 @@
 
     <section class="col-sm-3 sidenav hidden-xs text-center filter">
         <h3>FILTERI:</h3>
-        <form>
+        <form action="{{ path('filter_books') }}" method="post">
         <div class="form-group">
             <label for="select" class="attribute">Autor:</label>
             <div class="col-lg-10">
 
-                <select class="form-control" class="select">
+                <select class="form-control" class="select" name="author">
+                    <option value="-1">-</option>
                     {% for author in authors %}
                         <option value="{{ author.id }}">{{ author.surname }}, {{ author.name }}</option>
                     {% endfor %}
@@ -82,7 +83,8 @@
         <div class="form-group">
             <label for="select" class="attribute">Žanr:</label>
             <div class="col-lg-10">
-                <select class="form-control" class="select">
+                <select class="form-control" class="select" name="genre">
+                    <option value="-1">-</option>
                     {% for genre in genres %}
                          <option value="{{ genre.id }}">{{ genre.genre }}</option>
                     {% endfor %}
@@ -93,7 +95,8 @@
         <div class="form-group">
             <label for="select"  class="attribute">Nakladnik:</label>
             <div class="col-lg-10">
-                <select class="form-control" class="select">
+                <select class="form-control" class="select" name="publisher">
+                    <option value="-1">-</option>
                     {% for publisher in publishers %}
                         <option value="{{ publisher.id }}">{{ publisher.publisher }}</option>
                     {% endfor %}
@@ -104,14 +107,14 @@
         <div class="form-group">
             <label for="select"  class="attribute">cijena:</label>
             <div class="col-lg-10">
-                <select class="form-control" class="select">
-                    <option value="100">&lt;100</option>
-                    <option value="200">100&lt; x &lt;200</option>
-                    <option value="300">200&lt; x &lt;300</option>
-                    <option value="400">&gt;300</option>
+                <select class="form-control" class="select" name="price">
+                    <option value="0">-</option>
+                    <option value="-1">silazno</option>
+                    <option value="1">uzlazno</option>
                 </select>
             </div>
         </div>
+            <input type="submit" value="FILTRIRAJ">
         </form>
     </section>
     </section>
