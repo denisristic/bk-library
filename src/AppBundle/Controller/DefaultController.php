@@ -6,6 +6,7 @@ use AppBundle\Entity\Author;
 use AppBundle\Entity\Book;
 use AppBundle\Entity\Genre;
 use AppBundle\Entity\Publisher;
+use Doctrine\ORM\Query\Expr\Join;
 use Doctrine\ORM\Query\ResultSetMapping;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -59,36 +60,34 @@ class DefaultController extends Controller
      */
     public function filterBooksAction(Request $request)
     {
-
-
-
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
 
-
-        $rsm = new ResultSetMapping();
-
-        $qb->select('')
+        $qb->select('b')
+            ->from('AppBundle\Entity\Book', 'b');
 
         $author_id = $request->request->get('author');
         if($author_id !== '-1'){
-
+            $qb->join('b.authors', 'atr', Join::WITH, 'atr.id = :atID')
+                ->setParameter('atID', $author_id);
         }
         $genre_id = $request->request->get('genre');
         if($genre_id !== '-1'){
+            $qb->join('b.genre', 'gen', Join::WITH, 'gen.id = :genID')
+                ->setParameter('genID', $genre_id);
         }
         $publisher_id = $request->request->get('publisher');
         if($publisher_id !== '-1'){
+            $qb->join('b.publisher', 'pub', Join::WITH, 'pub.id = :pubID')
+                ->setParameter('pubID', $publisher_id);
         }
         $price_order = $request->request->get('price');
         if($price_order !== '0'){
             $qb->orderBy('b.price', $price_order === '1' ? 'ASC' : 'DESC');
         }
 
-        $query = $em->createNativeQuery('SELECT i ', $rsm);
-
-        $books = $query->getArrayResult();
-
+        $query = $qb->getQuery();
+        $books = $query->getResult();
 
         $featuredBooks = $em->getRepository(Book::class )->findBy(['featured' => 1]);
 
@@ -97,11 +96,11 @@ class DefaultController extends Controller
         $publishers=$em->getRepository(Publisher::class )->findAll();
 
         return $this->render('homepage.html.twig',
-            ['books' => $books,
+            [   'books' => $books,
                 'featuredBooks' => $featuredBooks,
                 'authors'=>$authors,
                 'genres'=>$genres,
-                'publishers'=>$publishers]);
-
+                'publishers'=>$publishers
+            ]);
     }
 }
