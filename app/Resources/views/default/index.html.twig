@@ -1,25 +1,7 @@
-{% extends 'base.html.twig' %}
+{% extends 'base_user.html.twig' %}
 
-{% block body %}
-    <div class="header">
+{% block body2 %}
 
-
-        <div class="row">
-            <div class="logo">
-                <img src="{{ asset('sources/logo.png') }}">
-            </div>
-
-            <h1 class="library-name">Libra</h1>
-
-
-            <ul class="main-nav">
-                <li><a href="#offer">KATALOG</a></li>
-                <li><a href="">KONTAKT</a></li>
-            </ul>
-        </div>
-
-    </div>
-    <div class="clear"></div>
 
 
     {% block book %}
@@ -216,9 +198,8 @@
         float:left;
 
         max-width: 1000px;
-        margin:15px 0 0 0;
+        margin:15px 0 30px 0;
         padding:25px 0 0 0;
-        margin-bottom: 5px 30px;
         list-style-type: none;
     }
 

@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+    <div class="header">
+
+
+        <div class="row">
+            <div class="logo">
+                <img src="{{ asset('sources/logo.png') }}">
+            </div>
+
+            <h1 class="library-name">Libra</h1>
+
+
+            <ul class="main-nav">
+
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    <li><a href="{{ logout_path() }}" >LOGOUT</a></li>
+                {% endif %}
+                
+            </ul>
+        </div>
+
+    </div>
+    <div class="clear"></div>
+    {% block body2 %}{% endblock %}
+    {% block javascripts %}
+    {% endblock %}
+{% endblock %}
