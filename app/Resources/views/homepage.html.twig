@@ -122,22 +122,25 @@
         <section id="top5" class="catalogue">
             <h3>TOP 5 (preporuka vlasnika):</h3>
             <ul id="top5cat" class="book-gallery">
+                
+                {% for book in featuredBooks %}
+                    <li>
+                        <div class="panel panel-primary">
+                            <div class="panel-heading">
 
-                <li>
+                                <a href="{{ path('book_details', {id: book.id}) }}" style="color: white"><p>{{ book.title }}</p></a>
 
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">NASLOV</button>
+                            </div>
+                            <div class="panel-body">
+                                <img class="cover img-responsive" src="{{ asset('uploads/images/'~book.image) }}">
+                                <p>autor: {% for author in book.authors %} {{ author.name ~ ' ' ~ author.surname }} {% endfor %}</p>
+                                <p>nakladnik:{{ book.publisher.publisher }}</p>
+                            </div>
                         </div>
-                        <div class="panel-body">
-                            <img class="cover img-responsive" src="">
-                            <p>autor:jkfhjkds</p>
-                            <p>nakladnik:jkhhjhgj</p>
-                        </div>
+                    </li>
 
-                    </div>
 
-                </li>
+                {% endfor %}
             </ul>
 
         </section>

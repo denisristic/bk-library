@@ -18,8 +18,9 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
         $books = $em->getRepository(Book::class)->findAll();
 
+        $featuredBooks = $em->getRepository(Book::class )->findBy(['featured' => 1]);
 
-        return $this->render('homepage.html.twig', ['books' => $books]);
+        return $this->render('homepage.html.twig', ['books' => $books, 'featuredBooks' => $featuredBooks]);
     }
 
     /**
