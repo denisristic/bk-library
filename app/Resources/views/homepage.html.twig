@@ -7,12 +7,80 @@
 
 <div class="clear"></div>
 <div class="rest">
+    <nav class="navbar navbar-inverse visible-xs">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Filter</a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="myNavbar">
+                <div class="panel-group" id="accordion">
+                    <div class="form-group">
+                        <label for="select" class="attribute">Žanr:</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" class="select">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <div class="clear"></div>
+                    <div class="form-group">
+                        <label for="select"  class="attribute">Nakladnik:</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" class="select">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="clear"></div>
+                    <div class="form-group">
+                        <label for="select"  class="attribute">cijena:</label>
+                        <div class="col-lg-10">
+                            <select class="form-control" class="select">
+                                <option>&lt;100</option>
+                                <option>&lt;200</option>
+                                <option>&lt;300</option>
+                                <option>&gt;300</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="clear"></div>
+                    <div class="form-group">
+                        <label for="action"class="attribute">Godina izdanja:</label>
+                        <div class="col-lg-10">
+                            <form class="number">
+                                <input type="number" name="year" min="1500" max="2017">
+                                <input type="submit">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <section class="col-sm-3 sidenav hidden-xs text-center filter">
         <h3>FILTERI:</h3>
         <div class="form-group">
             <label for="select" class="attribute">Autor:</label>
             <div class="col-lg-10">
-                <select class="form-control select">
+                <select class="form-control" class="select">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -25,7 +93,7 @@
         <div class="form-group">
             <label for="select" class="attribute">Žanr:</label>
             <div class="col-lg-10">
-                <select class="form-control select">
+                <select class="form-control" class="select">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -33,22 +101,34 @@
                     <option>5</option>
                 </select>
             </div>
-            <div class="clear"></div>
-            <div class="form-group">
-                <label for="select"  class="attribute">Nakladnik:</label>
-                <div class="col-lg-10">
-                    <select class="form-control select">
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
-                    </select>
-                </div>
+        </div>
+        <div class="clear"></div>
+        <div class="form-group">
+            <label for="select"  class="attribute">Nakladnik:</label>
+            <div class="col-lg-10">
+                <select class="form-control" class="select">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                    <option>5</option>
+                </select>
+            </div>
+        </div>
+        <div class="clear"></div>
+        <div class="form-group">
+            <label for="select"  class="attribute">cijena:</label>
+            <div class="col-lg-10">
+                <select class="form-control" class="select">
+                    <option>&lt;100</option>
+                    <option>&lt;200</option>
+                    <option>&lt;300</option>
+                    <option>&gt;300</option>
+                </select>
             </div>
         </div>
         <div class="form-group">
-            <label for="action" class="attribute">Godina izdanja:</label>
+            <label for="action"class="attribute">Godina izdanja:</label>
             <div class="col-lg-10">
                 <form class="number">
                     <input type="number" name="year" min="1500" max="2017">
@@ -56,6 +136,7 @@
                 </form>
             </div>
         </div>
+    </section>
     </section>
     <div class="offer" id="offer">
         <section id="top5" class="catalogue">
@@ -107,5 +188,60 @@
             </ul>
 
         </section>
+
+    </div>
+    <div class="clear"></div>
+    <footer id="contact" class="container">
+
+
+        <address>
+            <div id="podaci1">
+                <h3>KONTAKT:</h3>
+                <strong>vlasnik: XY</strong><br>
+                SD Cvjetno Naselje<br>
+                Zagreb,10000<br>
+                HRrvacka<br>
+
+            </div>
+            <div id="podaci2">
+                Tel.+385 xx xxx xxxx<br>
+                e-mail adresa:
+                <a class="mailadr" href="" data-toggle="modal" data-target="#adrModal">knjizara_Libra@gmail.com</a>
+            </div>
+            <div id="map">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d6078.007778486055!2d15.607762052003713!3d44.03301212627366!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4761da54782e6f15%3A0x9037d2b410c8020e!2s23420%2C+Benkovac!5e0!3m2!1shr!2shr!4v1504043099884" width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+            </div>
+        </address>
+
+
+    </footer>
+    <footer id="cr">&#169;bk-library team</footer>
+</div>
+
+    <div class="modal fade" id="adrModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">OSTAVITE KOMENTAR</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body panel-body">
+                    <form action="/action_page.php">
+                        E-mail:
+                        <input type="email" name="email">
+                        Komentar:
+                        <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Enter text here...">
+                      </textarea>
+                        <input type="submit">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}
