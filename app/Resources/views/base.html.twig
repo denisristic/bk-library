@@ -8,12 +8,98 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+        body
+        {
+            background-image:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("sources/pozadina.jpg");
+            height: 100vh;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+
+        }
+
+        header
+        {
+            position: fixed;
+            width: 100%;
+            left: 0;
+            top:0;
+            z-index:1;
+            background-image:linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url("sources/pozadina.jpg");
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+        }
+
+        .library-name
+        {
+            margin-left: 20px;
+            color: white;
+            font-size: 50px;
+            float: left;
+            margin-top: 50px;
+        }
+
+
+
+
+        .main-nav
+        {
+            float: right;
+            list-style-type: none;
+            margin-right: 30px;
+            margin-top: 70px;
+        }
+
+        .main-nav li
+        {
+            display: inline-block;
+            margin-left: 30px;
+        }
+
+        .main-nav li a
+        {
+            color: white;
+            text-decoration: none;
+            font-size: 90%;
+            font-weight: bold;
+
+        }
+
+
+        .main-nav li a:hover
+        {
+            color: #cc0000;
+            border-bottom: 2px solid #b30000;
+            transition:all 0.2s ease-in;
+            padding: 10px 0;
+        }
+
+        .logo img
+        {
+            height: 100px;
+            float: left;
+            margin-top: 30px;
+            margin-left: 30px
+        }
+
+        .row
+        {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+        .clear{
+            clear: both;
+        }
+    </style>
+
 </head>
 <body>
-    {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-        <a href="{{ logout_path() }}" class="btn btn-danger">Logout</a>
-    {% endif %}
+
+
     {% block body %}{% endblock %}
-    {% block javascripts %}{% endblock %}
+    {% block javascripts %}
+    {% endblock %}
 </body>
 </html>
