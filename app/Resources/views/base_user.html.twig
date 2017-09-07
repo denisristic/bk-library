@@ -16,11 +16,12 @@
                 <li><a href="/#offer">KATALOG</a></li>
 
                 <li><a href="#contact">KONTAKT</a></li>
-                <li>
+
                     {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                        <a href="{{ logout_path() }}">LOGOUT</a>
+                         <li><a href="{{ path('admin_homepage') }}">ADMIN</a></li>
+                         <li><a href="{{ logout_path() }}">LOGOUT</a></li>
                     {% endif %}
-                </li>
+
             </ul>
         </div>
 
