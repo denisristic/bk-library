@@ -66,15 +66,15 @@
 
     <section class="col-sm-3 sidenav hidden-xs text-center filter">
         <h3>FILTERI:</h3>
+        <form>
         <div class="form-group">
             <label for="select" class="attribute">Autor:</label>
             <div class="col-lg-10">
+
                 <select class="form-control" class="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {% for author in authors %}
+                        <option value="{{ author.id }}">{{ author.surname }}, {{ author.name }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -83,11 +83,9 @@
             <label for="select" class="attribute">Žanr:</label>
             <div class="col-lg-10">
                 <select class="form-control" class="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {% for genre in genres %}
+                         <option value="{{ genre.id }}">{{ genre.genre }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -96,11 +94,9 @@
             <label for="select"  class="attribute">Nakladnik:</label>
             <div class="col-lg-10">
                 <select class="form-control" class="select">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {% for publisher in publishers %}
+                        <option value="{{ publisher.id }}">{{ publisher.publisher }}</option>
+                    {% endfor %}
                 </select>
             </div>
         </div>
@@ -109,13 +105,14 @@
             <label for="select"  class="attribute">cijena:</label>
             <div class="col-lg-10">
                 <select class="form-control" class="select">
-                    <option>&lt;100</option>
-                    <option>&lt;200</option>
-                    <option>&lt;300</option>
-                    <option>&gt;300</option>
+                    <option value="100">&lt;100</option>
+                    <option value="200">100&lt; x &lt;200</option>
+                    <option value="300">200&lt; x &lt;300</option>
+                    <option value="400">&gt;300</option>
                 </select>
             </div>
         </div>
+        </form>
     </section>
     </section>
     <div class="offer" id="offer">
