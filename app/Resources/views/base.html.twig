@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
+    <link href='https://fonts.googleapis.com/css?family=Nothing You Could Do' rel='stylesheet'>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
@@ -19,7 +20,7 @@
 
         }
 
-        header
+        .header
         {
             position: fixed;
             width: 100%;
@@ -34,6 +35,7 @@
 
         .library-name
         {
+            font-family: 'Nothing You Could Do';
             margin-left: 20px;
             color: white;
             font-size: 50px;
@@ -41,7 +43,13 @@
             margin-top: 50px;
         }
 
-
+        .library-name :hover{
+            text-decoration: none;
+            color:white;
+        }
+        .library-name :visited{
+            color:white;
+        }
 
 
         .main-nav
@@ -92,14 +100,274 @@
         .clear{
             clear: both;
         }
-    </style>
 
-</head>
-<body>
+        .book-gallery li{
+            box-sizing: border-box;
+            display:block;
+            float:left;
+            width: 144px;
+            height:100px;
+            color: #171e42;
+            margin-right:10px;
+            margin-bottom: 200px;
+
+        }
+        .book-gallery li:hover{
+            transform:scale(1.25);
+            transition:0.5s;
+        }
+
+        #top5cat li:hover{
+            transform:scale(1.25);
+            transition:0.5s;
+        }
+
+        .quote
+        {
+            text-align: center;
+            color: white;
+            font-size: 25px;
+            margin-top: 200px;
+            margin-bottom: 400px;
+            padding-top: 200px;
+        }
+        .cover{
+            height: 90px;
+            width:80px;
+
+        }
+
+        .rest{
+            z-index: 2;
+            margin:0 auto;
+            max-width: 1300px;
+            padding: 0;
 
 
+        }
+
+
+        .catalogue{
+
+            max-width: 950px;
+            margin: 0 auto;
+            padding:0;
+
+
+        }
+        .book-gallery{
+            list-style: none;
+            max-width:900px;
+            float:left;
+            list-style-type: none;
+            padding:0;
+            margin: 0;
+
+        }
+
+        .cover{
+            float:left;
+            width:80px;
+            height:90px;
+            margin-right: 5px;
+
+
+        }
+
+        #top5{
+            float:left;
+
+            max-width: 1000px;
+            margin:15px 0 30px 0;
+            padding:25px 0 0 0;
+            list-style-type: none;
+        }
+
+
+        #top5cat{
+            margin: 10px 0 0 0;
+            padding: 15px 0 0 0;
+        }
+
+
+        .filter{
+            color:white;
+            background-color: #392613;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            float:left;
+            max-width:300px;
+            margin:0;
+            padding: 5px;
+            border-radius: 20px;
+        }
+        .offer{
+            background-color: #392613;
+            color:white;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            margin-left: 10px;
+            padding: 0 10px 0 30px;
+            float:left;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+        .form-group{
+
+            line-height: 30px;
+            padding: 5px;
+        }
+        .form-control{
+            float:left;
+        }
+        .attribute{
+            float:left;
+            margin-right: 15px;
+        }
+        .select{
+            float:left;
+        }
+        .col-lg-10{
+            margin-bottom: 10px;
+            padding: 0;
+        }
+        .number{
+            color: black;
+        }
+        .panel {
+
+            min-width: 144px;
+        }
+        .panel-heading {
+            background-color:#392613;
+        }
+
+        .book-description
+        {
+            margin-top: 200px;
+            background-color: #392613;
+            color:white;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            margin-left: 10px;
+            padding: 0 10px 0 30px;
+
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+        .description-list
+        {
+            list-style-type: none;
+        }
+        .mailadr{
+            color: white;
+        }
+        .mailadr:hover{
+            color: white;
+            text-decoration: none;
+        }
+        .mailadr:visited{
+            color: white;
+            text-decoration: none;
+        }
+
+        .navbar-toggle, .icon-bar {
+            border:1px solid white;
+        }
+        .navbar{
+            background-color:#392613;
+            border: none;
+            border-radius: 20px;
+        }
+        #contact{
+            color:white;
+            background-color:#392613;
+            margin-top: 15px;
+            border-radius: 20px;
+            width:100%;
+        }
+        #podaci1{
+            float:left;
+            margin-right: 50px;
+        }
+
+        iframe{
+            max-width: 300px;
+            max-height: 200px;
+            float:left;
+            padding-bottom: 20px;
+            padding-left: 20px;
+        }
+        #podaci2{
+            float:left;
+            padding-top: 55px;
+            margin:0 50px 50px 0;
+        }
+        #cr{
+            background-color: black;
+            color:white;
+            float:left;
+            width:100%;
+            text-align: right;
+            padding-right: 50px;
+        }
+        .admin_list{
+            margin-top: 150px;
+        }
+        .admin_att{
+            background-color: #392613;
+            height: 70px;
+            padding: 25px 20px;
+        }
+        .list-group-item a{
+            color:white;
+        }
+        .bookcon{
+            margin-top: 150px;
+        }
+        .det-list
+        {
+            float:left;
+            float: left;
+            color: white;
+            width: 60%;
+            border-radius: 50px;
+        }
+        .det-atr {
+            position: relative;
+            display: block;
+            padding: 10px 15px;
+            background-color: #392613;
+            border: 1px solid #392613;
+            background-size: 100%;
+        }
+        .cover-img{
+            float:left;
+
+            width:200px;
+            height:240px;
+            margin-right: 5px;
+            float: left;
+            background-size: cover;
+            border-radius: 20px;
+        }
+        .book-description{
+            margin:150px 70px 20px 150px;
+        }
+        .admin_options{
+            float:left;
+            width:100%;
+            padding-bottom: 0;
+        }
+
+        </style>
     {% block body %}{% endblock %}
     {% block javascripts %}
     {% endblock %}
+<body>
 </body>
 </html>

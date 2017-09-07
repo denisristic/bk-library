@@ -4,23 +4,35 @@
     <div class="clear2"><q></q></div>
 
 
+
     <div class="book-description">
+        <div class="admin_options">
 
-        <img class="cover-img" src="{{ asset('uploads/images/'~books.image) }}">
+            <a href="{{ path('edit_book', {id: books.id}) }}" class="btn btn-sm btn-default">
+                <i class="fa fa-eye" aria-hidden="true"></i> UREDI
+            </a>
+            <a href="{{ path('remove_book', {id: books.id}) }}" class="btn btn-sm btn-default">
+                <i class="fa fa-eye" aria-hidden="true"></i> UKLONI
+            </a>
+        </div>
 
-        <ul class="list-group">
-            <li class="list-group-item">Naslov: {{ books.title }}</li>
-            <li class="list-group-item">Autori: {% for author in books.authors %} {{author.name ~ ' ' ~ author.surname}}{% endfor %}</li>
-            <li class="list-group-item">Žanr: {{ books.genre.genre }}</li>
-            <li class="list-group-item">Izdavač: {{ books.publisher.publisher }}</li>
-            <li class="list-group-item">Datum izdavanja: {{ books.publicationDate }}</li>
-            <li class="list-group-item">Broj stranica: {{ books.pages }}</li>
-            <li class="list-group-item">Cijena: {{ books.price }}</li>
-            <li class="list-group-item">Akcijska cijena: {{ books.actionPrice }}</li>
-            <li class="list-group-item">Opis: {{ books.description }}</li>
+        <img class="cover-img cov-des" src="{{ asset('uploads/images/'~books.image) }}">
+
+        <ul class=" det-list list-group">
+            <li class="det-atr list-group-item">Naslov: {{ books.title }}</li>
+            <li class="det-atr list-group-item">Autori: {% for author in books.authors %} {{author.name ~ ' ' ~ author.surname}}{% endfor %}</li>
+            <li class="det-atr list-group-item">Žanr: {{ books.genre.genre }}</li>
+            <li class="det-atr list-group-item">Izdavač: {{ books.publisher.publisher }}</li>
+            <li class="det-atr list-group-item">Datum izdavanja: {{ books.publicationDate }}</li>
+            <li class="det-atr list-group-item">Broj stranica: {{ books.pages }}</li>
+            <li class="det-atr list-group-item">Cijena: {{ books.price }}</li>
+            <li class="det-atr list-group-item">Akcijska cijena: {{ books.actionPrice }}</li>
+            <li class="det-atr list-group-item">Opis: {{ books.description }}</li>
         </ul>
+
     </div>
     <div class="clear"></div>
+
     <footer id="contact" class="container">
 
 
