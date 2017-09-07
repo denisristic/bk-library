@@ -3,19 +3,21 @@
 
     <div class="clear2"><q></q></div>
 
-    <div class="book-description">
-        <img class="cover" src="{{ asset('uploads/images/'~books.image) }}">
 
-        <ul class="description-list">
-            <li>Naslov: {{ books.title }}</li>
-            <li>Autori:<br> {% for author in books.authors %} {{author.name ~ ' ' ~ author.surname}}<br>{% endfor %}</li>
-            <li>Žanr: {{ books.genre.genre }}</li>
-            <li>Izdavač: {{ books.publisher.publisher }}</li>
-            <li>Datum izdavanja: {{ books.publicationDate }}</li>
-            <li>Broj stranica: {{ books.pages }}</li>
-            <li>Cijena: {{ books.price }}</li>
-            <li>Akcijska cijena: {{ books.actionPrice }}</li>
-            <li>Opis: {{ books.description }}</li>
+    <div class="book-description">
+
+        <img class="cover-img" src="{{ asset('uploads/images/'~books.image) }}">
+
+        <ul class="list-group">
+            <li class="list-group-item">Naslov: {{ books.title }}</li>
+            <li class="list-group-item">Autori: {% for author in books.authors %} {{author.name ~ ' ' ~ author.surname}}{% endfor %}</li>
+            <li class="list-group-item">Žanr: {{ books.genre.genre }}</li>
+            <li class="list-group-item">Izdavač: {{ books.publisher.publisher }}</li>
+            <li class="list-group-item">Datum izdavanja: {{ books.publicationDate }}</li>
+            <li class="list-group-item">Broj stranica: {{ books.pages }}</li>
+            <li class="list-group-item">Cijena: {{ books.price }}</li>
+            <li class="list-group-item">Akcijska cijena: {{ books.actionPrice }}</li>
+            <li class="list-group-item">Opis: {{ books.description }}</li>
         </ul>
     </div>
     <div class="clear"></div>
