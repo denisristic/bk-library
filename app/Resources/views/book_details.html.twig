@@ -59,11 +59,11 @@
                     </button>
                 </div>
                 <div class="modal-body panel-body">
-                    <form action="/action_page.php">
+                    <form action="{{ path('mail') }}" method="post">
                         E-mail:
                         <input type="email" name="email">
                         Komentar:
-                        <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Enter text here...">
+                        <textarea rows="4" cols="50" name="comment">Pozdrav, zainteresiran sam za naslov [{{ books.title }}]
                       </textarea>
                         <input type="submit">
                     </form>

@@ -155,4 +155,6 @@ class AttributesController extends Controller
 
         return $this->redirect($this->generateUrl('add_attributes'));
     }
+
+
 }
