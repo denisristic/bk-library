@@ -27,7 +27,7 @@ class BookEntryController extends Controller
         $form = $this->createForm(BookType::class, new Book());
 
         return $this->render('book_entry.html.twig', array(
-            'route'=>'/book',
+            'route'=>'/admin/book',
             'form' => $form->createView()
         ));
     }
@@ -64,7 +64,7 @@ class BookEntryController extends Controller
         }
 
         return $this->render('book_entry.html.twig', array(
-            'route'=>'/book',
+            'route'=>'/admin/book',
             'form' => $form->createView()
         ));
     }
@@ -166,9 +166,6 @@ class BookEntryController extends Controller
      *
      */
     private function validate(Book $book) {
-        if ($book->getId() == null) {
-            throw  new \Exception("Knjiga ne postoji.");
-        }
 
         if ($book->getPublicationDate() < 1455 || $book->getPublicationDate() > 2100) {
             throw  new \Exception("Nevaljana godina.");
