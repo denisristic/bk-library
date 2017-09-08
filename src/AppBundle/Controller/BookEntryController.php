@@ -105,12 +105,10 @@ class BookEntryController extends Controller
             $em->persist($book);
             $em->flush();
 
-            $this->addFlash('success', 'Knjiga izmijenjena !');
-        } else {
             $this->fail($request,"Nevaljana forma.");
         }
 
-        return $this->redirect($this->generateUrl('admin_book_details', ['id' => $book->getId()]));
+        return $this->redirect($this->generateUrl('book_details', ['id' => $book->getId()]));
     }
 
     /**

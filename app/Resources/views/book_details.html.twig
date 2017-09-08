@@ -25,8 +25,10 @@
             <li class="det-atr list-group-item">Izdavač: {{ books.publisher.publisher }}</li>
             <li class="det-atr list-group-item">Datum izdavanja: {{ books.publicationDate }}</li>
             <li class="det-atr list-group-item">Broj stranica: {{ books.pages }}</li>
-            <li class="det-atr list-group-item">Cijena: {{ books.price }}</li>
-            <li class="det-atr list-group-item">Akcijska cijena: {{ books.actionPrice }}</li>
+            <li class="det-atr list-group-item">Cijena: {{ books.price }},00kn</li>
+            {% if books.actionPrice is not null %}
+                <li class="det-atr list-group-item">Akcijska cijena: {{ books.actionPrice }},00 kn</li>
+            {% endif %}
             <li class="det-atr list-group-item">Opis: {{ books.description }}</li>
         </ul>
 
@@ -86,8 +88,6 @@
             </div>
         </div>
     </div>
-    {% block adminOptions %}
-{% endblock %}
 
 {% endblock %}
 

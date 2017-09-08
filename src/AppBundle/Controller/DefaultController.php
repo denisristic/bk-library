@@ -46,14 +46,6 @@ class DefaultController extends Controller
         return $this->render('book_details.html.twig', ['books' => $book]);
     }
 
-    /**
-     *  @Route("/admin/{id}", requirements={"id": "\d+"}, name="admin_book_details")
-     */
-    public function adminBookDetailsAction(Book $book)
-    {
-        return $this->render('book_details_admin.html.twig', ['books' => $book]);
-    }
-
 
     /**
      *  @Route("/filter", name="filter_books")

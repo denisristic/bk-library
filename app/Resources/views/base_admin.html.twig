@@ -15,7 +15,8 @@
 
                 <li><a href="/#offer">KATALOG</a></li>
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
-                    <li><a href="{{ logout_path() }}" >ODJAVI</a></li>
+                    <li><a href="{{ path('admin_homepage') }}">ADMIN</a></li>
+                    <li><a href="{{ logout_path() }}" >ODJAVA</a></li>
                 {% endif %}
 
             </ul>

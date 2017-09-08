@@ -64,10 +64,6 @@ class AttributesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($author);
             $em->flush();
-
-            $this->addFlash('success', "Author added");
-
-
         }
 
         return $this->redirect($this->generateUrl('add_attributes'));
@@ -107,9 +103,6 @@ class AttributesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($publisher);
             $em->flush();
-
-            $this->addFlash('success', "Publisher added");
-
         }
 
         return $this->redirect($this->generateUrl('add_attributes'));
@@ -149,8 +142,6 @@ class AttributesController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($genre);
             $em->flush();
-
-            $this->addFlash('success', "Genre added");
         }
 
         return $this->redirect($this->generateUrl('add_attributes'));

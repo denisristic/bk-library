@@ -2,7 +2,7 @@
 {% block book %}
 
     <div class="q">
-        <p class="quote"><cite>"This is a simple hero unit, a simple jumbotron-style component for <br>calling extra attention to featured content or information."</cite></p>
+        <p class="quote"><cite>"Dobri prijatelji, dobre knjige i pospana savjest - to je idealan život." - John Burroughs</cite></p>
     </div>
 
     <div class="clear"></div>
@@ -18,17 +18,34 @@
                     <a class="navbar-brand" href="#">Filter</a>
                 </div>
 
+                <form action="{{ path('filter_books') }}" method="post">
+
+
                 <div class="collapse navbar-collapse" id="myNavbar">
                     <div class="panel-group" id="accordion">
+
+
+                        <div class="form-group">
+                            <label for="select"  class="attribute">Autor:</label>
+                            <div class="col-lg-10">
+                                <select class="form-control" class="select" name="author">
+                                    <option value="-1">-</option>
+                                    {% for author in authors %}
+                                        <option value="{{ author.id }}">{{ author.surname }}, {{ author.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="clear"></div>
                         <div class="form-group">
                             <label for="select" class="attribute">Žanr:</label>
                             <div class="col-lg-10">
-                                <select class="form-control" class="select">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select class="form-control" class="select" name="genre">
+                                    <option value="-1">-</option>
+                                    {% for genre in genres %}
+                                        <option value="{{ genre.id }}">{{ genre.genre }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
@@ -38,29 +55,31 @@
                         <div class="form-group">
                             <label for="select"  class="attribute">Nakladnik:</label>
                             <div class="col-lg-10">
-                                <select class="form-control" class="select">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
+                                <select class="form-control" class="select" name="publisher">
+                                    <option value="-1">-</option>
+                                    {% for publisher in publishers %}
+                                        <option value="{{ publisher.id }}">{{ publisher.publisher }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
+
                         <div class="clear"></div>
                         <div class="form-group">
-                            <label for="select"  class="attribute">cijena:</label>
+                            <label for="select"  class="attribute">Cijena:</label>
                             <div class="col-lg-10">
-                                <select class="form-control" class="select">
-                                    <option>&lt;100</option>
-                                    <option>&lt;200</option>
-                                    <option>&lt;300</option>
-                                    <option>&gt;300</option>
+                                <select class="form-control" class="select" name="price">
+                                    <option value="0">-</option>
+                                    <option value="-1">silazno</option>
+                                    <option value="1">uzlazno</option>
                                 </select>
                             </div>
+
                         </div>
                     </div>
                 </div>
+                    <input type="submit" class="botun" value="FILTRIRAJ">
+                </form>
             </div>
         </nav>
 
@@ -77,6 +96,7 @@
                                 <option value="{{ author.id }}">{{ author.surname }}, {{ author.name }}</option>
                             {% endfor %}
                         </select>
+
                     </div>
                 </div>
                 <div class="clear"></div>
@@ -105,7 +125,7 @@
                 </div>
                 <div class="clear"></div>
                 <div class="form-group">
-                    <label for="select"  class="attribute">cijena:</label>
+                    <label for="select"  class="attribute">Cijena:</label>
                     <div class="col-lg-10">
                         <select class="form-control" class="select" name="price">
                             <option value="0">-</option>
@@ -114,7 +134,7 @@
                         </select>
                     </div>
                 </div>
-                <input type="submit" value="FILTRIRAJ">
+                <input type="submit" class="botun" value="FILTRIRAJ">
             </form>
         </section>
         </section>
@@ -125,19 +145,27 @@
 
                     {% for book in featuredBooks %}
                         <li>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
+                            <div class="card">
+                                <div class="card-heading">
 
                                     <a href="{{ path('book_details', {id: book.id}) }}" style="color: white"><p>{{ book.title }}</p></a>
 
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <img class="cover img-responsive" src="{{ asset('uploads/images/'~book.image) }}">
-                                    <p>autor: {% for author in book.authors %} {{ author.name ~ ' ' ~ author.surname }} {% endfor %}</p>
-                                    <p>nakladnik:{{ book.publisher.publisher }}</p>
+                                    <div class="cardtxt">
+                                    {% for author in book.authors %} <p> {{ author.name ~ ' ' ~ author.surname }} </p>{% endfor %}
+
+                                    <p>{{ book.price}},00 kn</p>
+
+                                    {% if book.actionPrice is not null %}
+                                        <p>AKCIJA:{{ book.actionPrice }},00 kn</p>
+                                    {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </li>
+
 
 
                     {% endfor %}
@@ -152,16 +180,22 @@
 
                     {% for book in books %}
                         <li>
-                            <div class="panel panel-primary">
-                                <div class="panel-heading">
+                            <div class="card">
+                                <div class="card-heading">
 
                                     <a href="{{ path('book_details', {id: book.id}) }}" style="color: white"><p>{{ book.title }}</p></a>
 
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <img class="cover img-responsive" src="{{ asset('uploads/images/'~book.image) }}">
-                                    <p>autor: {% for author in book.authors %} {{ author.name ~ ' ' ~ author.surname }} {% endfor %}</p>
-                                    <p>nakladnik:{{ book.publisher.publisher }}</p>
+                                    <div class="cardtxt">
+                                    {% for author in book.authors %} <p> {{ author.name ~ ' ' ~ author.surname }} </p>{% endfor %}
+                                        <p>{{ book.price}},00 kn</p>
+
+                                        {% if book.actionPrice is not null %}
+                                            <p>AKCIJA:{{ book.actionPrice }},00 kn</p>
+                                        {% endif %}
+                                    </div>
                                 </div>
                             </div>
                         </li>
@@ -180,7 +214,7 @@
             <address>
                 <div id="podaci1">
                     <h3>KONTAKT:</h3>
-                    <strong>vlasnik: XY</strong><br>
+                    vlasnik: XY<br>
                     SD Cvjetno Naselje<br>
                     Zagreb,10000<br>
                     HRrvacka<br>
@@ -212,11 +246,11 @@
                     </button>
                 </div>
                 <div class="modal-body panel-body">
-                    <form action="/action_page.php">
+                    <form action="{{ path('mail') }}" method="post">
                         E-mail:
                         <input type="email" name="email">
                         Komentar:
-                        <textarea rows="4" cols="50" name="comment" form="usrform" placeholder="Enter text here...">
+                        <textarea rows="4" cols="50" name="comment" placeholder="Enter text here...">
                       </textarea>
                         <input type="submit">
                     </form>
